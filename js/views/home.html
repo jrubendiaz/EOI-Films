@@ -1,0 +1,35 @@
+    <div class="row">
+        <aside class="col col-sm-3">
+            <div class="sidebar-header row flex flex-center">
+                <div class="option option-iconic col col-sm-6 flex flex-center">
+                    <i class="fa fa-sliders" aria-hidden="true"></i>
+                    <label> Filtrar </label>
+                </div>
+                <div class="option option-del col col-sm-6 flex flex-center">
+                    <label> Borrar </label>
+                </div>
+            </div>
+            <div class="sidebar-widgets flex flex-column">
+                <div class="widget slides">
+                    Widget para sliders
+                </div>
+                <div class="widget genre">
+                    Widget para géneros
+                </div>
+            </div>
+        </aside>
+        <section class="col col-sm-9">
+            <div class="section-header row flex flex-center">
+                <div class="res-counter flex flex-start">
+                    <strong>108,175</strong> películas encontradas
+                </div>
+                <div class="order-by-container flex flex-end">
+                    Ordenar ^
+                </div>
+            </div>
+            <div class="section-content flex flex-space-b flex-wrapper films">
+                <film-preview
+                film = "homeCtrl.films[0]"></film-preview>
+            </div>
+        </section>
+    </div>

@@ -11,15 +11,18 @@
 
 	<!-- Custom CSS -->
 	<link rel="stylesheet" href="css/styles.css">
+	<!-- Components custom CSS -->
+	<link rel="stylesheet" href="js/components/filmPreview/filmPreview.css">
 	<!-- Angular cloak CSS -->
 	<link rel="stylesheet" href="libs/angular-csp.css">
 
 	<!-- Font Awesome -->
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 </head>
-<body>
+<body ng-app="EOIFilms">
 	<nav class="navbar navbar-inverse no-rounded">
 	  <div class="container-fluid  wrapper flex flex-center">
+			{{2015-15}}
 			<div class="nav-bar-container flex">
 				<div class="navbar-header">
 					<a class="navbar-brand" href="#">
@@ -40,49 +43,23 @@
 	    </div>
 	  </div>
 	</nav>
-	<main class="container-fluid wrapper">
-		<div class="row">
-			<aside class="col col-sm-3">
-				<div class="sidebar-header row flex flex-center">
-					<div class="option option-iconic col col-sm-6 flex flex-center">
-						<i class="fa fa-sliders" aria-hidden="true"></i>
-						<label> Filtrar </label>
-					</div>
-					<div class="option option-del col col-sm-6 flex flex-center">
-						<label> Borrar </label>
-					</div>
-				</div>
-				<div class="sidebar-widgets flex flex-column">
-					<div class="widget slides">
-						Widget para sliders
-					</div>
-					<div class="widget genre">
-						Widget para géneros
-					</div>
-				</div>
-			</aside>
-			<section class="col col-sm-9">
-				<div class="section-header row flex flex-center">
-					<div class="res-counter flex flex-start">
-						<strong>108,175</strong> películas encontradas
-					</div>
-					<div class="order-by-container flex flex-end">
-						Ordenar ^
-					</div>
-				</div>
-				<div class="section-content flex flex-space-b flex-wrapper films">
-					<div class="film-item">Soy una película</div>
-					<div class="film-item">Soy una película</div>
-					<div class="film-item">Soy una película</div>
-					<div class="film-item">Soy una película</div>
-				</div>
-			</section>
-		</div>
-	</main>
+	<main class="container-fluid wrapper" ng-view></main>
 
 
 
 	<!-- Angular CORE -->
 	<script src="libs/angular.js"></script>
+	<!-- Angular Route -->
+	<script src="libs/angular-route.min.js"></script>
+	<!-- Firebase + AngularFire -->
+	<script src="libs/angularfire.js"></script>
+	<script src="libs/firebase/firebase.js"></script>
+	<!-- Main App Config -->
+	<script src="js/app.config.js"></script>
+
+	<!-- Controllers -->
+	<script src="js/controllers/homeController.controller.js"></script>
+	<!-- Components -->
+	<script src="js/components/filmPreview/filmPreview.component.js"></script>
 </body>
 </html>

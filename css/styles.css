@@ -28,6 +28,9 @@
 .no-rounded {
 	border-radius: 0px;
 }
+.navbar {
+	margin-bottom: 0px;
+}
 .navbar > div > div {
 	flex: 1;
 }
@@ -86,12 +89,7 @@ section {
 .section-content {
 	width: 100%;
 }
-.films .film-item {
-	width: 31.3%;
-	margin: 1%;
-	height: 300px;
-	background-color: #5c6269;
-}
+
 
 
 
