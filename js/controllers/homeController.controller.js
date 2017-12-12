@@ -15,6 +15,33 @@
         vm.modal = 'inactive';
         vm.currentFilm = {};
         vm.genres = [];
+        vm.yearSlider = {
+            minValue: 2010,
+            maxValue: 2015,
+            options: {
+                floor: 1979,
+                ceil: 2017,
+                step: 1,
+            }
+        };
+        vm.imbdSlider = {
+            minValue: 0,
+            maxValue: 5,
+            options: {
+                floor: 0,
+                ceil: 5,
+                step: 1,
+            }
+        };
+        vm.rottenSlider = {
+            minValue: 0,
+            maxValue: 50,
+            options: {
+                floor: 0,
+                ceil: 100,
+                step: 1,
+            }
+        };
 
         //Functions
         vm.activateModal = activateModal;

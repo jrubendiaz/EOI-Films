@@ -33,7 +33,18 @@
             </div>
             <div class="sidebar-widgets flex flex-column">
                 <div class="widget slides">
-                    Widget para sliders
+                        <small>Año</small>
+                        <rzslider rz-slider-model="homeCtrl.yearSlider.minValue"
+                                  rz-slider-high="homeCtrl.yearSlider.maxValue"
+                                  rz-slider-options="homeCtrl.yearSlider.options"></rzslider>
+                        <small>Valoración IMDB</small>
+                        <rzslider rz-slider-model="homeCtrl.imbdSlider.minValue"
+                                  rz-slider-high="homeCtrl.imbdSlider.maxValue"
+                                  rz-slider-options="homeCtrl.imbdSlider.options"></rzslider>
+                        <small>Valoración Rotten Tomatoes</small>
+                        <rzslider rz-slider-model="homeCtrl.rottenSlider.minValue"
+                                  rz-slider-high="homeCtrl.rottenSlider.maxValue"
+                                  rz-slider-options="homeCtrl.rottenSlider.options"></rzslider>
                 </div>
                 <div class="widget genre flex flex-center flex-wrapper flex-space-b">
                     <div class="title"><label>Géneros</label></div>

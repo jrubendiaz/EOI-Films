@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('EOIFilms', ['ngRoute', 'firebase']).config(config)
+    angular.module('EOIFilms', ['ngRoute', 'firebase', 'rzModule']).config(config)
 
     config.$inject = ['$routeProvider', '$locationProvider'];
 
