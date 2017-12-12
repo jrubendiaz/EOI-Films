@@ -21,16 +21,20 @@
         <section>
             <div class="section-header flex flex-center">
                 <div class="res-counter flex flex-start">
-                    <strong>108,175</strong> películas encontradas
+                    <p>
+                        <strong>{{homeCtrl.total | number}}</strong>
+                        películas encontradas
+                    </p>
                 </div>
                 <div class="order-by-container flex flex-end">
                     Ordenar ^
                 </div>
             </div>
             <div class="section-content flex flex-space-a flex-wrapper films">
-                <film-preview film="homeCtrl.films[0]"></film-preview>
-                <film-preview film="homeCtrl.films[0]"></film-preview>
-                <film-preview film="homeCtrl.films[0]"></film-preview>
+                <film-preview
+                    ng-repeat="film in homeCtrl.films"
+                    film="film">
+                </film-preview>
             </div>
         </section>
     </div>

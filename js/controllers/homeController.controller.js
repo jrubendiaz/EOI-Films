@@ -5,25 +5,24 @@
         .module('EOIFilms')
         .controller('homeController', homeController);
 
-    homeController.$inject = [];
-    function homeController() {
+    homeController.$inject = ['movieDBProvider'];
+    function homeController(movieDBProvider) {
         var vm = this;
         vm.films = [];
-        var fakeFilm = {
-            Poster: "https://images-na.ssl-images-amazon.com/images/M/MV5BMTg2MzI1MTg3OF5BMl5BanBnXkFtZTgwNTU3NDA2MTI@._V1_SX300.jpg",
-            Title: "Guardians of the Galaxy Vol. 2",
-            RottenTomatoes: "83%",
-            InternetMovieDB: "7.8/10",
-            MetaCritic: "67/100"
-        }
-
+        vm.total = 0;
+        vm.pages = 0;
 
         activate();
 
         ////////////////
 
         function activate() {
-            vm.films.push(fakeFilm);
+            movieDBProvider.discover().then(res => {
+                vm.films = res.films;
+                vm.total = res.total;
+                vm.pages = res.pages;
+            });
+
          }
     }
 })();

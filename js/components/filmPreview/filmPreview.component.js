@@ -21,12 +21,9 @@
     function filmPreviewController() {
         var vm = this;
 
-
         ////////////////
 
-        vm.$onInit = function() {
-            console.log(vm.film);
-         };
+        vm.$onInit = function() { };
         vm.$onChanges = function(changesObj) { };
         vm.$onDestroy = function() { };
     }

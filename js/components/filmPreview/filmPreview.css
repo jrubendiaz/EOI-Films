@@ -1,5 +1,6 @@
 .films film-preview{
-	width: 270px;
+    width: 270px;
+    margin-bottom: 24px;
 }
 .film-item {
     width: 100%;
@@ -37,4 +38,3 @@
     opacity: 1;
     color: white;
 }
-
