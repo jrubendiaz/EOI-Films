@@ -12,12 +12,12 @@
                     <h3>Sinopsis</h3>
                 </div>
                 <div class="duration">
-                    {{vm.film.duration || "2H 26MIN"}}
+                    {{vm.runtimeCalc(vm.film.runtime)}}
                 </div>
             </div>
             <div class="detalis flex">
                 <div class="categories">
-                    <small ng-repeat="genre in vm.film.genre_ids">{{genre}}</small>
+                    <small ng-repeat="genre in vm.film.genres">{{genre.name}}</small>
                 </div>
                 <div class="ratings">
                     {{vm.film.vote_average}}
@@ -27,16 +27,24 @@
                 <p>{{vm.film.overview}}</p>
             </div>
         </div>
-        <div class="trailer-container">
+        <div class="trailer-container flex flex-column">
             <div class="title">
                 <h3>Trailer</h3>
-                <div class="trailer">
+            </div>
+            <div class="trailer">
 
-                </div>
             </div>
         </div>
     </div>
 </div>
-<div class="film-profile-footer">
-    SOY EL FOOTER
+<div class="film-profile-footer flex flex-column flex-space-b">
+    <div class="title">
+        <h3>Películas similares</h3>
+    </div>
+    <div class="films-container flex">
+        <div ng-repeat="movie in vm.similarFilms" class="similar-films-container flex flex-column flex-center">
+            <img src="{{movie.poster}}" alt="">
+            <p>{{movie.title}}</p>
+        </div>
+    </div>
 </div>

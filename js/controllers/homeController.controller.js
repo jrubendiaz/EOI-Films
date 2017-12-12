@@ -14,16 +14,23 @@
         vm.pages = 0;
         vm.modal = 'inactive';
         vm.currentFilm = {};
+        vm.genres = [];
 
         //Functions
         vm.activateModal = activateModal;
+        vm.filmsTopRated = filmsTopRated;
+        vm.filmsPopular = filmsPopular;
+        vm.filmsDiscover = filmsDiscover;
+        vm.setFilms = setFilms;
         activate();
 
         ////////////////
 
         function activate() {
             filmsPopular();
-            console.log(vm.modal);
+            movieDBProvider.getGenres().then(genres => {
+                vm.genres = genres;
+            })
          }
          function setFilms(api_res) {
              api_res.then(res => {

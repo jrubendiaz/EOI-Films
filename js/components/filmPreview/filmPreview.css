@@ -2,6 +2,7 @@
     width: 270px;
     margin-bottom: 24px;
     cursor: pointer;
+    transition: all 400ms ease;
 }
 .film-item {
     width: 100%;

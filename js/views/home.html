@@ -1,3 +1,25 @@
+<nav class="navbar navbar-inverse no-rounded">
+    <div class="container-fluid  wrapper flex flex-center">
+      <div class="nav-bar-container flex">
+          <div class="navbar-header">
+              <a class="navbar-brand" href="#">
+                  <img alt="Pelis EOI" src="...">
+              </a>
+          </div>
+          <ul class="nav navbar-nav">
+              <li><a ng-click="homeCtrl.filmsPopular()">Popular</a></li>
+              <li><a ng-click="homeCtrl.filmsTopRated()">Top Rated</a></li>
+          </ul>
+      </div>
+      <div class="search-bar flex flex-end">
+          <div class="input-group">
+            <span class="input-group-addon" id="sizing-addon2"><i class="fa fa-search" aria-hidden="true"></i></span>
+            <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon2">
+          </div>
+      </div>
+    </div>
+  </nav>
+<main class="container-fluid wrapper">
     <div class="flex wrapper">
         <aside>
             <div class="sidebar-header flex flex-center">
@@ -13,8 +35,9 @@
                 <div class="widget slides">
                     Widget para sliders
                 </div>
-                <div class="widget genre">
-                    Widget para géneros
+                <div class="widget genre flex flex-center flex-wrapper flex-space-b">
+                    <div class="title"><label>Géneros</label></div>
+                    <small ng-repeat="g in homeCtrl.genres">{{g.name}}</small>
                 </div>
             </div>
         </aside>
@@ -42,9 +65,11 @@
             <button class="btn btn-close-modal" ng-click="homeCtrl.modal='inactive'">cerrar</button>
             <div class="film-profile-container">
                 <film-profile
+                    ng-if="homeCtrl.modal=='active'"
                     film="homeCtrl.currentFilm">
                 </film-profile>
             </div>
 
         </div>
     </div>
+</main>

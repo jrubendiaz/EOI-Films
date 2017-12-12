@@ -76,12 +76,23 @@ aside {
 }
 .sidebar-widgets {
 	min-height: 900px;
-	background-color: gold;
 }
 .widget {
-	flex: 1;
-	background-color: goldenrod;
 	border-top: 1px solid black;
+}
+.widget.genre small{
+	width: 45%;
+	margin: 1% 2.5%;
+	text-align: center;
+	text-transform: capitalize;
+	padding: 6px 12px;
+	background-color: silver;
+	border-radius: 6px;
+}
+.widget.genre .title {
+	width: 100%;
+	margin: 0% 1%;
+	padding: 6px 6px;
 }
 .section-header {
 	min-height: 40px;
