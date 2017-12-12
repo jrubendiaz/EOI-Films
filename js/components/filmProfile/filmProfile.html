@@ -1,0 +1,42 @@
+<div class="film-profile-header flex">
+    <h2>{{vm.film.title}}</h2><span class="date">{{vm.film.release_date}}</span>
+</div>
+<div class="film-profile-content flex">
+    <div class="poster-container">
+        <img src="{{vm.film.poster}}" alt="">
+    </div>
+    <div class="main-container flex flex-column">
+        <div class="info-container">
+            <div class="info-header flex">
+                <div class="title">
+                    <h3>Sinopsis</h3>
+                </div>
+                <div class="duration">
+                    {{vm.film.duration || "2H 26MIN"}}
+                </div>
+            </div>
+            <div class="detalis flex">
+                <div class="categories">
+                    <small ng-repeat="genre in vm.film.genre_ids">{{genre}}</small>
+                </div>
+                <div class="ratings">
+                    {{vm.film.vote_average}}
+                </div>
+            </div>
+            <div class="overview">
+                <p>{{vm.film.overview}}</p>
+            </div>
+        </div>
+        <div class="trailer-container">
+            <div class="title">
+                <h3>Trailer</h3>
+                <div class="trailer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="film-profile-footer">
+    SOY EL FOOTER
+</div>

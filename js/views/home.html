@@ -33,8 +33,18 @@
             <div class="section-content flex flex-space-a flex-wrapper films">
                 <film-preview
                     ng-repeat="film in homeCtrl.films"
+                    activatemodal = "homeCtrl.activateModal(film)"
                     film="film">
                 </film-preview>
             </div>
         </section>
+        <div ng-class="{active: homeCtrl.modal=='active'}" class="film-modal flex flex-end">
+            <button class="btn btn-close-modal" ng-click="homeCtrl.modal='inactive'">cerrar</button>
+            <div class="film-profile-container">
+                <film-profile
+                    film="homeCtrl.currentFilm">
+                </film-profile>
+            </div>
+
+        </div>
     </div>

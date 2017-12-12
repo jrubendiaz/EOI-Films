@@ -14,6 +14,7 @@
             controllerAs: 'vm',
             bindings: {
                 film: '=',
+                activatemodal: "&"
             },
         });
 
@@ -21,10 +22,16 @@
     function filmPreviewController() {
         var vm = this;
 
+        vm.activate = activate;
+
         ////////////////
 
         vm.$onInit = function() { };
         vm.$onChanges = function(changesObj) { };
         vm.$onDestroy = function() { };
+
+        function activate(){
+            vm.activatemodal(vm.film);
+        }
     }
 })();

@@ -1,0 +1,11 @@
+film-profile .poster-container img{
+    max-height: 60vh;
+}
+
+film-profile .categories small{
+    padding: 6px 12px;
+    margin-right: 6px;
+    border-radius: 6px;
+    background-color: black;
+    color: white;
+}

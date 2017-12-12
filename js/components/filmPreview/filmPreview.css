@@ -1,6 +1,7 @@
 .films film-preview{
     width: 270px;
     margin-bottom: 24px;
+    cursor: pointer;
 }
 .film-item {
     width: 100%;
@@ -32,7 +33,7 @@
     opacity: 0;
     transition: all 500ms cubic-bezier(0.99,-0.99, 0.01, 1.99);
 }
-.film-item:hover .film-item-fade-cover, .film-item:hover .film-item-values, .film-item:hover .film-item-values > .value{
+film-preview:hover .film-item-fade-cover, film-preview:hover .film-item-values, film-preview:hover .film-item-values > .value{
     transform: translateX(0);
     transform: scale(1);
     opacity: 1;
