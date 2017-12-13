@@ -15,9 +15,11 @@
         vm.modal = 'inactive';
         vm.currentFilm = {};
         vm.genres = [];
+        vm.title = "";
+        vm.years = {};
         vm.yearSlider = {
             minValue: 2010,
-            maxValue: 2015,
+            maxValue: 2017,
             options: {
                 floor: 1979,
                 ceil: 2017,
@@ -25,17 +27,17 @@
             }
         };
         vm.imbdSlider = {
-            minValue: 0,
-            maxValue: 5,
+            minValue: 5,
+            maxValue: 10,
             options: {
                 floor: 0,
-                ceil: 5,
+                ceil: 10,
                 step: 1,
             }
         };
         vm.rottenSlider = {
             minValue: 0,
-            maxValue: 50,
+            maxValue: 100,
             options: {
                 floor: 0,
                 ceil: 100,
@@ -49,6 +51,10 @@
         vm.filmsPopular = filmsPopular;
         vm.filmsDiscover = filmsDiscover;
         vm.setFilms = setFilms;
+        vm.getMovies_byGenre = getMovies_byGenre;
+        vm.getMovies_byTitle = getMovies_byTitle;
+        vm.getMovies_byFilters = getMovies_byFilters;
+
         activate();
 
         ////////////////
@@ -58,6 +64,10 @@
             movieDBProvider.getGenres().then(genres => {
                 vm.genres = genres;
             })
+            vm.years = {
+                first: vm.yearSlider.minValue,
+                last: vm.yearSlider.maxValue
+            }
          }
          function setFilms(api_res) {
              api_res.then(res => {
@@ -74,6 +84,15 @@
          }
          function filmsPopular() {
             setFilms(movieDBProvider.popular());
+         }
+         function getMovies_byGenre(genre_id) {
+             setFilms(movieDBProvider.getMovies_byGenre(genre_id));
+         }
+         function getMovies_byTitle(title) {
+             setFilms(movieDBProvider.getMovies_byTitle(title));
+         }
+         function getMovies_byFilters() {
+            setFilms(movieDBProvider.getMovies_byFilters(vm.yearSlider.minValue, vm.yearSlider.maxValue, vm.imbdSlider.minValue, vm.imbdSlider.maxValue));
          }
          function activateModal(film) {
              vm.modal = 'active';

@@ -14,8 +14,9 @@
       <div class="search-bar flex flex-end">
           <div class="input-group">
             <span class="input-group-addon" id="sizing-addon2"><i class="fa fa-search" aria-hidden="true"></i></span>
-            <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon2">
+            <input ng-model="homeCtrl.title" type="text" class="form-control" placeholder="Búsqueda por título" aria-describedby="sizing-addon2">
           </div>
+          <button class="btn" ng-click="homeCtrl.getMovies_byTitle(homeCtrl.title)">Buscar</button>
       </div>
     </div>
   </nav>
@@ -33,8 +34,11 @@
             </div>
             <div class="sidebar-widgets flex flex-column">
                 <div class="widget slides">
+                        <button ng-click="homeCtrl.getMovies_byFilters()"> FILTRAR </button>
+
                         <small>Año</small>
-                        <rzslider rz-slider-model="homeCtrl.yearSlider.minValue"
+                        <rzslider ng-model="homeCtrl.yearSlider.minValue"
+                                  rz-slider-model="homeCtrl.yearSlider.minValue"
                                   rz-slider-high="homeCtrl.yearSlider.maxValue"
                                   rz-slider-options="homeCtrl.yearSlider.options"></rzslider>
                         <small>Valoración IMDB</small>
@@ -48,7 +52,9 @@
                 </div>
                 <div class="widget genre flex flex-center flex-wrapper flex-space-b">
                     <div class="title"><label>Géneros</label></div>
-                    <small ng-repeat="g in homeCtrl.genres">{{g.name}}</small>
+                    <small
+                        ng-click="homeCtrl.getMovies_byGenre(g.id)"
+                        ng-repeat="g in homeCtrl.genres">{{g.name}}</small>
                 </div>
             </div>
         </aside>
