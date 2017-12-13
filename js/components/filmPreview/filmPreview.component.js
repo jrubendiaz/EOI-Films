@@ -9,7 +9,7 @@
     angular
         .module('EOIFilms')
         .component('filmPreview', {
-            templateUrl: '/js/components/filmPreview/filmPreview.html',
+            templateUrl: 'js/components/filmPreview/filmPreview.html',
             controller: filmPreviewController,
             controllerAs: 'vm',
             bindings: {

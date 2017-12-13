@@ -7,8 +7,9 @@
               </a>
           </div>
           <ul class="nav navbar-nav">
-              <li><a ng-click="homeCtrl.filmsPopular()">Popular</a></li>
-              <li><a ng-click="homeCtrl.filmsTopRated()">Top Rated</a></li>
+              <li><a ng-click="homeCtrl.getFilms('popular')">Popular</a></li>
+              <li><a ng-click="homeCtrl.getFilms('topRated')">Top Rated</a></li>
+              <li><a ng-click="homeCtrl.getFilms('upcoming')">Upcoming</a></li>
           </ul>
       </div>
       <div class="search-bar flex flex-end">
@@ -16,7 +17,7 @@
             <span class="input-group-addon" id="sizing-addon2"><i class="fa fa-search" aria-hidden="true"></i></span>
             <input ng-model="homeCtrl.title" type="text" class="form-control" placeholder="Búsqueda por título" aria-describedby="sizing-addon2">
           </div>
-          <button class="btn" ng-click="homeCtrl.getMovies_byTitle(homeCtrl.title)">Buscar</button>
+          <button class="btn" ng-click="homeCtrl.getFilms('byTitle', homeCtrl.title)">Buscar</button>
       </div>
     </div>
   </nav>
@@ -34,26 +35,22 @@
             </div>
             <div class="sidebar-widgets flex flex-column">
                 <div class="widget slides">
-                        <button ng-click="homeCtrl.getMovies_byFilters()"> FILTRAR </button>
+                        <button ng-click="homeCtrl.getFilms('byFilters')"> FILTRAR </button>
 
                         <small>Año</small>
                         <rzslider ng-model="homeCtrl.yearSlider.minValue"
                                   rz-slider-model="homeCtrl.yearSlider.minValue"
                                   rz-slider-high="homeCtrl.yearSlider.maxValue"
                                   rz-slider-options="homeCtrl.yearSlider.options"></rzslider>
-                        <small>Valoración IMDB</small>
+                        <small>Valoración TheMovieDB</small>
                         <rzslider rz-slider-model="homeCtrl.imbdSlider.minValue"
                                   rz-slider-high="homeCtrl.imbdSlider.maxValue"
                                   rz-slider-options="homeCtrl.imbdSlider.options"></rzslider>
-                        <small>Valoración Rotten Tomatoes</small>
-                        <rzslider rz-slider-model="homeCtrl.rottenSlider.minValue"
-                                  rz-slider-high="homeCtrl.rottenSlider.maxValue"
-                                  rz-slider-options="homeCtrl.rottenSlider.options"></rzslider>
                 </div>
                 <div class="widget genre flex flex-center flex-wrapper flex-space-b">
                     <div class="title"><label>Géneros</label></div>
                     <small
-                        ng-click="homeCtrl.getMovies_byGenre(g.id)"
+                        ng-click="homeCtrl.getFilms('byGenre', g.id)"
                         ng-repeat="g in homeCtrl.genres">{{g.name}}</small>
                 </div>
             </div>
@@ -63,7 +60,7 @@
                 <div class="res-counter flex flex-start">
                     <p>
                         <strong>{{homeCtrl.total | number}}</strong>
-                        películas encontradas
+                        películas encontradas en {{homeCtrl.current_cat}}
                     </p>
                 </div>
                 <div class="order-by-container flex flex-end">
@@ -74,7 +71,8 @@
                 <film-preview
                     ng-repeat="film in homeCtrl.films"
                     activatemodal = "homeCtrl.activateModal(film)"
-                    film="film">
+                    film="film"
+                    class="{{film.state}}">
                 </film-preview>
             </div>
         </section>

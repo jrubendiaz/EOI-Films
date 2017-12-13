@@ -5,18 +5,22 @@
         .module('EOIFilms')
         .controller('homeController', homeController);
 
-    homeController.$inject = ['movieDBProvider'];
-    function homeController(movieDBProvider) {
+    homeController.$inject = ['movieDBProvider', '$window', '$document', '$timeout'];
+    function homeController(movieDBProvider, $window, $document, $timeout) {
         var vm = this;
         //Variables
+        vm.films_element = document.querySelector('body');
         vm.films = [];
         vm.total = 0;
         vm.pages = 0;
+        vm.page = 1;
         vm.modal = 'inactive';
         vm.currentFilm = {};
         vm.genres = [];
         vm.title = "";
         vm.years = {};
+        vm.timeoutID;
+        vm.time = 100;
         vm.yearSlider = {
             minValue: 2010,
             maxValue: 2017,
@@ -47,20 +51,17 @@
 
         //Functions
         vm.activateModal = activateModal;
-        vm.filmsTopRated = filmsTopRated;
-        vm.filmsPopular = filmsPopular;
-        vm.filmsDiscover = filmsDiscover;
+        vm.getFilms = getFilms;
         vm.setFilms = setFilms;
-        vm.getMovies_byGenre = getMovies_byGenre;
-        vm.getMovies_byTitle = getMovies_byTitle;
-        vm.getMovies_byFilters = getMovies_byFilters;
 
         activate();
 
         ////////////////
 
         function activate() {
-            filmsPopular();
+            $window.addEventListener('scroll', lazyLoad);
+
+            getFilms("topRated", "");
             movieDBProvider.getGenres().then(genres => {
                 vm.genres = genres;
             })
@@ -69,35 +70,81 @@
                 last: vm.yearSlider.maxValue
             }
          }
-         function setFilms(api_res) {
-             api_res.then(res => {
-                vm.films = res.films;
-                vm.total = res.total;
-                vm.pages = res.pages;
+         function lazyLoad(e) {
+            let films_container_height = vm.films_element.clientHeight;
+            let currentPosition = window.innerHeight + window.scrollY;
+            let bottomPosition = document.body.offsetHeight;
+            if (currentPosition >= bottomPosition) {
+                window.clearTimeout(vm.timeoutID);
+                vm.page++;
+                vm.timeoutID = window.setTimeout(getFilms(vm.current_cat, vm.current_ref || ""), 1500);
+            }
+         }
+         function changePreviewState() {
+             let time = 100;
+             let increment = 200;
+             vm.films.forEach((film, index) => {
+                if((index % 20) == 0 && index != 0) {
+                    time = time - (increment*20);
+                }
+                time = time + increment;
+                $timeout(() => {film.state = "in"}, time);
              })
          }
-         function filmsDiscover() {
-            setFilms(movieDBProvider.discover());
+         function setFilms(api_res) {
+             api_res.then(res => {
+                (vm.page == 1) ? vm.films = [] : ""
+
+                res.films.forEach(film => {
+                    let aux_film = {
+                        state: "",
+                        ...film,
+                    }
+                    vm.films.push(aux_film);
+                })
+                vm.total = res.total;
+                vm.pages = res.pages;
+                changePreviewState();
+             })
          }
-         function filmsTopRated() {
-            setFilms(movieDBProvider.topRated());
-         }
-         function filmsPopular() {
-            setFilms(movieDBProvider.popular());
-         }
-         function getMovies_byGenre(genre_id) {
-             setFilms(movieDBProvider.getMovies_byGenre(genre_id));
-         }
-         function getMovies_byTitle(title) {
-             setFilms(movieDBProvider.getMovies_byTitle(title));
-         }
-         function getMovies_byFilters() {
-            setFilms(movieDBProvider.getMovies_byFilters(vm.yearSlider.minValue, vm.yearSlider.maxValue, vm.imbdSlider.minValue, vm.imbdSlider.maxValue));
+         function getFilms(cat, ref) {
+             vm.current_cat = cat;
+             vm.current_ref = ref || "";
+             switch (cat) {
+                case "discover":
+                    setFilms(movieDBProvider.discover(vm.page));
+                    break;
+                case "topRated":
+                    setFilms(movieDBProvider.topRated(vm.page));
+                    break;
+                case "popular":
+                    setFilms(movieDBProvider.popular(vm.page));
+                    break;
+                case "upcoming":
+                    setFilms(movieDBProvider.upcoming(vm.page));
+                    break;
+                case "byGenre":
+                    setFilms(movieDBProvider.getMovies_byGenre(ref, vm.page));
+                    break;
+                case "byTitle":
+                    setFilms(movieDBProvider.getMovies_byTitle(ref, vm.page));
+                    break;
+                case "byFilters":
+                    let filters = {
+                        y_first: vm.yearSlider.minValue,
+                        y_last: vm.yearSlider.maxValue,
+                        i_first: vm.imbdSlider.minValue,
+                        i_last: vm.imbdSlider.maxValue,
+                    }
+                    setFilms(movieDBProvider.getMovies_byFilters(filters, vm.page));
+                    break;
+                 default:
+                     break;
+             }
          }
          function activateModal(film) {
              vm.modal = 'active';
              vm.currentFilm = film;
-             console.log(vm.modal, vm.currentFilm);
          }
     }
 })();

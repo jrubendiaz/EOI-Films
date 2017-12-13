@@ -1,3 +1,14 @@
+.film-profile{
+    height: 100vh;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.film-profile .overlay{
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(244,244,244, 0.8);
+}
 .film-profile-content {
     height: 55vh;
     width: 100%;
