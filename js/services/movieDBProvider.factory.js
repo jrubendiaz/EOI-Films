@@ -8,43 +8,83 @@
     movieDBProvider.$inject = ['$http'];
     function movieDBProvider($http) {
         var service = {
-            discover:discover,
-            topRated: topRated,
-            popular: popular,
-            upcoming: upcoming,
-            getMovie: getMovie,
             getSimilar: getSimilar,
             getGenres: getGenres,
-            getMovies_byGenre: getMovies_byGenre,
-            getMovies_byTitle: getMovies_byTitle,
-            getMovies_byFilters: getMovies_byFilters,
-            getMovie_OMDB: getMovie_OMDB,
             getTrailers: getTrailers,
+            getFilms: getFilms,
+            getMovie: getMovie
         };
         const api_key = "api_key=4d664496ab97da469473483e9aa045d6";
         var section = ""
-        const base_url = "https://api.themoviedb.org/3/";
-        const omdb_key = "apikey=3370463f";
-        const omdb_url = "http://www.omdbapi.com/?";
+        const v = "3";
+        const base_url = "http://api.themoviedb.org/" + v;
+
         var films = [];
         var aux_film = {};
         var aux_res = {};
+
+        var default_arrgs = ['discover', 'movie'];
+        var default_filters = [
+            {
+                name: "vote_average.gte",
+                value: 0
+            },
+            {
+                name: "vote_average.lte",
+                value: 10
+            },
+            {
+                name: "release_date.gte",
+                value: "1800-01-01"
+            },
+            {
+                name: "release_date.lte",
+                value: "2030-01-01"
+            },
+            {
+                name: "sort-by",
+                value: "popularity.desc"
+            },
+            {
+                name: "with_genres",
+                value: ""
+            }
+        ];
 
 
         return service;
 
         ////////////////
-        function getGenres() {
-            let aux_url = base_url + "genre/movie/list?" + api_key + "&language=es";
-            let genres = [];
-            return $http.get(aux_url).then(res => {
-                return res.data.genres;
-            })
-        }
-        function getMovies_by(url_by) {
-            films = [];
-            return $http.get(url_by).then(res => {
+        function buildURL(arrgs, filters, page) {
+            let aux_url = base_url;
+            let aux_arrgs = "";
+            let filters_string = "";
+            let aux_filters = filters || default_filters;
+            let aux_page = "&page=" + page;
 
+            arrgs.forEach(arr => {
+                aux_arrgs += "/" + arr;
+            })
+
+            aux_filters.forEach((fil, index) => {
+                let op = "";
+                (index == 0) ? op = "?" : op = "&"
+                filters_string += op + fil.name + "=" + fil.value;
+            })
+
+            aux_url += aux_arrgs + filters_string + "&" + api_key + aux_page;
+            return aux_url;
+        }
+
+        function getFilms(config) {
+            console.log(config);
+            let arrgs = config.arrgs || default_arrgs;
+            let filters = config.filters || default_filters;
+            let page = config.page || 1;
+            let films = [];
+            let final_url = buildURL(arrgs, filters, page);
+
+            return $http.get(final_url).then(res => {
                 res.data.results.forEach(film => {
                     aux_film = {
                         id: film.id,
@@ -62,62 +102,29 @@
                 return aux_res;
             })
         }
-        function getMovies_byFilters(filters, page){
-            let aux_url = base_url + "discover/movie?" + api_key + "&sort_by=popularity.desc&include_adult=false&page=" + page + "&primary_release_date.gte=" + filters.y_first + "-01-01&primary_release_date.lte=" + filters.y_last + "-12-30&vote_count.gte=500&vote_average.gte=" + filters.i_first+"&vote_average.lte=" + filters.i_last;
-            return getMovies_by(aux_url);
-        }
-        function getMovies_byTitle(title, page) {
-            let aux_url = base_url + "search/movie?" + api_key + "&query=" + title + "&page=" + page;
-            return getMovies_by(aux_url);
-        }
-        function getMovies_byGenre(genre_id, page) {
-            let aux_url = base_url + "genre/" + genre_id + "/movies?" + api_key + "&page=" + page;
-            return getMovies_by(aux_url);
-        }
-        function getMovies(section, page) {
-            let aux_url = base_url+"movie/"+section+"?page=" + page + "&"+api_key;
-            return getMovies_by(aux_url);
-        }
-        function topRated(page) {
-            return getMovies("top_rated", page);
-        }
-        function popular(page) {
-            return getMovies("popular", page);
-        }
-        function upcoming(page) {
-            return getMovies("upcoming", page);
-        }
-        function getMovie_OMDB(id) {
-            let aux_url = omdb_url + "i=" + id + "&" + omdb_key;
+        function getGenres() {
+            let aux_url = base_url + "/genre/movie/list?" + api_key + "&language=es";
+            let genres = [];
             return $http.get(aux_url).then(res => {
-                return res.data;
+                return res.data.genres;
             })
         }
         function getTrailers(id) {
-            let aux_url = base_url + "movie/" + id + "/videos?" + api_key;
+            let aux_url = base_url + "/movie/" + id + "/videos?" + api_key;
             return $http.get(aux_url).then(res => {
-                console.log(res.data.results);
                 return res.data.results;
             })
         }
         function getMovie(id) {
-            let aux_url = base_url+"movie/"+id+"?"+api_key;
+            let aux_url = base_url + "/movie/" + id + "?" + api_key;
             return $http.get(aux_url).then(res => {
                 return res.data;
             })
         }
-
-        // ¡¡¡¡¡¡DRY!!!!!! -> TODO
         function getSimilar(id) {
-            let aux_url = base_url + "movie/" + id + "/similar?" + api_key;
-            return getMovies_by(aux_url);
-        }
-
-        // ¡¡¡¡¡DRY!!!!! -> TODO
-        function discover() {
-            section = "discover";
-            let discover_url = base_url+section+"/movie?page=1&"+api_key;
-            return getMovies_by(discover_url);
+            let aux = {};
+            aux.arrgs = ['movie', id, 'similar'];
+            return getFilms(aux);
         }
     }
 })();

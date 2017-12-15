@@ -142,9 +142,14 @@ aside {
 	right: 25px;
 	top: 25px;
 }
-
-
-
+.mini-genre.no-selected {
+	border: 2px solid rgba(11,11,11, 0.2);
+	transition: all 400ms linear;
+}
+.mini-genre.selected {
+	border-color: red;
+	opacity: 0.5;
+}
 
 
 

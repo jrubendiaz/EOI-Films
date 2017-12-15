@@ -7,9 +7,10 @@
               </a>
           </div>
           <ul class="nav navbar-nav">
-              <li><a ng-click="homeCtrl.getFilms('popular')">Popular</a></li>
-              <li><a ng-click="homeCtrl.getFilms('topRated')">Top Rated</a></li>
-              <li><a ng-click="homeCtrl.getFilms('upcoming')">Upcoming</a></li>
+              <li><a ng-click="homeCtrl.setArrgs('movie-popular')">Popular</a></li>
+              <li><a ng-click="homeCtrl.setArrgs('movie-top_rated')">Top Rated</a></li>
+              <li><a ng-click="homeCtrl.setArrgs('movie-upcoming')">Upcoming</a></li>
+              <li><a ng-click="homeCtrl.setArrgs('discover-movie')">Discover</a></li>
           </ul>
       </div>
       <div class="search-bar flex flex-end">
@@ -17,7 +18,7 @@
             <span class="input-group-addon" id="sizing-addon2"><i class="fa fa-search" aria-hidden="true"></i></span>
             <input ng-model="homeCtrl.title" type="text" class="form-control" placeholder="Búsqueda por título" aria-describedby="sizing-addon2">
           </div>
-          <button class="btn" ng-click="homeCtrl.getFilms('byTitle', homeCtrl.title)">Buscar</button>
+          <button class="btn" ng-click="homeCtrl.newSearch('byTitle', homeCtrl.title)">Buscar</button>
       </div>
     </div>
   </nav>
@@ -50,8 +51,9 @@
                 <div class="widget genre flex flex-center flex-wrapper flex-space-b">
                     <div class="title"><label>Géneros</label></div>
                     <small
-                        ng-click="homeCtrl.getFilms('byGenre', g.id)"
-                        ng-repeat="g in homeCtrl.genres">{{g.name}}</small>
+                        class="mini-genre {{g.state}}"
+                        ng-repeat="g in homeCtrl.genres"
+                        ng-click="homeCtrl.addSelectedGenres(g)">{{g.name}}</small>
                 </div>
             </div>
         </aside>
@@ -84,7 +86,6 @@
                     film="homeCtrl.currentFilm">
                 </film-profile>
             </div>
-
         </div>
     </div>
 </main>
