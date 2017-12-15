@@ -73,6 +73,7 @@
             })
 
             aux_url += aux_arrgs + filters_string + "&" + api_key + aux_page;
+            console.log(aux_url);
             return aux_url;
         }
 

@@ -66,14 +66,42 @@
                     </p>
                 </div>
                 <div class="order-by-container flex flex-end">
-                    Ordenar ^
+                    <select ng-model="homeCtrl.current_sort" ng-change="homeCtrl.sortBy()">
+                        <option
+                            ng-repeat="sorter in homeCtrl.sorters"
+                            value="{{sorter.value}}">{{sorter.display}}</option>
+                    </select>
                 </div>
             </div>
             <div class="section-content flex flex-space-a flex-wrapper films">
+                <!--
+                    <div class="section-content skeleton flex flex-space-a flex-wrapper films" ng-if="homeCtrl.films.state != 'loaded'">
+                    <div class="film-item">
+                        <div class="film-item-fade-cover">
+
+                        </div>
+                        <div class="film-item-values"></div>
+                    </div>
+                    <div class="film-item">
+                    <div class="film-item-fade-cover">
+
+                    </div>
+                    <div class="film-item-values"></div>
+                    </div>
+                    <div class="film-item">
+                        <div class="film-item-fade-cover">
+
+                        </div>
+                        <div class="film-item-values"></div>
+                    </div>
+                </div>
+            -->
                 <film-preview
+                    ng-if="homeCtrl.films"
                     ng-repeat="film in homeCtrl.films"
                     activatemodal = "homeCtrl.activateModal(film)"
                     film="film"
+                    films-state="homeCtrl.filmsState"
                     class="{{film.state}}">
                 </film-preview>
             </div>

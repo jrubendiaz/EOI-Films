@@ -10,7 +10,8 @@
         var vm = this;
         //Variables
         vm.films_element = document.querySelector('body');
-        vm.films = [];
+        vm.films = [{}, {}, {}];
+        vm.filmsState = "unload";
         vm.config = {
             filters: [],
             arrgs:  [],
@@ -27,6 +28,7 @@
         vm.years = {};
         vm.timeoutID;
         vm.time = 100;
+        vm.current_sort = "popularity.desc";
 
         //Functions
         vm.activateModal = activateModal;
@@ -37,6 +39,7 @@
         vm.handleDates = handleDates;
         vm.handleValoration = handleValoration;
         vm.setArrgs = setArrgs;
+        vm.sortBy = sortBy;
 
         vm.yearSlider = {
             minValue: 2010,
@@ -60,10 +63,45 @@
         };
         vm.config.filters = [
             {
-                name: "sort-by",
+                name: "sort_by",
                 value: "popularity.desc"
             }
         ];
+        vm.sorters = [
+            {
+                value: "popularity.asc",
+                display: "Popularidad Ascendente"
+            },
+            {
+                value: "popularity.desc",
+                display: "Popularidad Descendente"
+            },
+            {
+               value: "release_date.asc",
+               display: "Lanzamiento Ascendente"
+            },
+            {
+                value: "release_date.desc",
+                display: "Lanzamiento Descendente"
+             },
+             {
+                 value: "vote_average.asc",
+                 display: "Valoración Ascendente"
+             },
+             {
+                value: "vote_average.desc",
+                display: "Valoración Descendente"
+             },
+             {
+                 value: "vote_count.asc",
+                 display: "Número de votos Ascendente"
+             },
+             {
+                 value: "vote_count.desc",
+                 display: "Número de votos Descendente"
+             }
+        ]
+
         vm.config.arrgs = ["discover", "movie"];
 
         activate();
@@ -100,17 +138,18 @@
             }
          }
          function changePreviewState() {
-             let time = 100;
-             let increment = 200;
+             let time = 20;
+             let increment = 20;
              vm.films.forEach((film, index) => {
                 if((index % 20) == 0 && index != 0) {
                     time = time - (increment*20);
                 }
-                time = time + increment;
-                $timeout(() => {film.state = "in"}, time);
+                //time = time + increment;
+                $timeout(() => {film.state = "animated fadeIn"}, time);
              })
          }
          function setFilms(api_res) {
+             vm.filmsState = 'unload';
              api_res.then(res => {
                 (vm.config.page == 1) ? vm.films = [] : ""
 
@@ -170,6 +209,19 @@
 
             getFilms();
          }
+
+        function sortBy() {
+            vm.films = [];
+            let sortBy = {
+                name: "sort_by",
+                value: vm.current_sort
+            };
+            let sort = vm.config.filters.find(f => f.name == sortBy.name);
+            console.log(sort);
+            sort ? sort.value = sortBy.value : vm.config.filters.push(sortBy);
+
+            getFilms();
+        }
          function getFilms() {
              setFilms(movieDBProvider.getFilms(vm.config));
          }

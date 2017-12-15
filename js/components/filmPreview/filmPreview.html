@@ -1,19 +1,26 @@
 <div
-    style="background-image:url('{{vm.film.poster}}')"
     class="film-item flex flex-column"
     ng-click="vm.activate()">
-    <div class="film-item-fade-cover flex flex-center">
-            <i class="fas fa-eye"></i>
+    <div class="skeleton film-item-fade-cover flex flex-center"
+         ng-if="vm.filmsState != 'loaded'">
+
     </div>
-    <div class="film-item-values flex">
-        <div class="value flex flex-center">
+    <div class="film-item-fade-cover flex flex-center {{vm.state}}"
+         style="background-image:url('{{vm.film.poster}}')"
+         ng-if="vm.filmsState == 'loaded'">
+    </div>
+    <div class="film-item-values skeleton"
+         ng-if="vm.filmsState != 'loaded'">
 
-        </div>
-        <div class="value flex flex-center">
-
-        </div>
-        <div class="value flex flex-center">
-
+    </div>
+    <div class="film-item-values flex {{vm.state}}"
+         ng-if="vm.filmsState == 'loaded'">
+        <div class="value flex flex-center flex-column">
+            <label class="title"><i class="far fa-thumbs-up"></i></label>
+            <label class="data">{{vm.film.vote_count}}</label>       </div>
+        <div class="value flex flex-center flex-column">
+            <label class="title"><i class="far fa-star"></i></label>
+            <label class="data">{{vm.film.vote_average}}</label>
         </div>
     </div>
 </div>
