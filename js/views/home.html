@@ -48,12 +48,12 @@
                                   rz-slider-high="homeCtrl.imbdSlider.maxValue"
                                   rz-slider-options="homeCtrl.imbdSlider.options"></rzslider>
                 </div>
-                <div class="widget genre flex flex-center flex-wrapper flex-space-b">
+                <div class="widget genre flex flex-center flex-wrapper flex-space-a">
                     <div class="title"><label>Géneros</label></div>
-                    <small
-                        class="mini-genre {{g.state}}"
+                    <button
+                        class="btn bg-soft {{g.state}}"
                         ng-repeat="g in homeCtrl.genres"
-                        ng-click="homeCtrl.addSelectedGenres(g)">{{g.name}}</small>
+                        ng-click="homeCtrl.addSelectedGenres(g)">{{g.name}}</button>
                 </div>
             </div>
         </aside>
@@ -92,10 +92,23 @@
                     <div class="user-profile-header">
                         <h1>Nombre usuario</h1>
                     </div>
+                    <div class="user-profile-nav flex flex-space-b">
+                        <div class="opt flex flex-column flex-center">
+                            <h2>Favoritas</h2>
+                            <p class="btn-circle btn bg-pink white">{{homeCtrl.user.favorites.length}}</p>
+                        </div>
+                        <div class="opt flex flex-column flex-center">
+                            <h2>Vistas</h2>
+                            <p class="btn-circle btn bg-pink white">{{homeCtrl.user.watched.length}}</p>
+                        </div>
+                        <div class="opt flex flex-column flex-center">
+                            <h2>Para más tarde</h2>
+                            <p class="btn-circle btn bg-pink white">{{homeCtrl.user.watchLater.length}}</p>
+                        </div>
+                    </div>
+
                     <div class="user-profile-films section-content flex flex-column flex-center">
-                        <h2>Favoritas</h2>
-                        <p class="btn-circle btn bg-pink white">{{homeCtrl.user.favorites.length}}</p>
-                        <div class="section-content flex-space-a flex">
+                        <div class="section-content flex-wrapper  flex-space-a flex">
                             <film-preview
                                 ng-if="homeCtrl.films"
                                 ng-repeat="film in homeCtrl.user.movies"

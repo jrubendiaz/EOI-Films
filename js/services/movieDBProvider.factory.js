@@ -117,7 +117,15 @@
         function getMovie(id) {
             let aux_url = base_url + "/movie/" + id + "?" + api_key;
             return $http.get(aux_url).then(res => {
-                return res.data;
+                let aux_film = {
+                    id: res.data.id,
+                    title: res.data.title,
+                    poster: "https://image.tmdb.org/t/p/w640/"+res.data.poster_path,
+                    ratings: [],
+                    ...res.data
+                }
+                console.log(aux_film);
+                return aux_film;
             })
         }
         function getSimilar(id) {

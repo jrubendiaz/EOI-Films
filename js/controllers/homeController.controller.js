@@ -137,10 +137,7 @@
             let currentPosition = window.innerHeight + window.scrollY;
             let bottomPosition = document.body.offsetHeight;
 
-            console.log(bottomPosition, currentPosition);
-
             if (currentPosition >= bottomPosition) {
-                console.log("Estoy aquí");
                 window.clearTimeout(vm.timeoutID);
                 vm.config.page++;
                 vm.timeoutID = window.setTimeout(getFilms, 1500);
@@ -275,6 +272,7 @@
          function showUserProfile() {
              vm.userProfile = !vm.userProfile;
              if(vm.userProfile) {
+                 loadUserInfo();
                  loadUserMovies(vm.user.favorites);
              }
          }

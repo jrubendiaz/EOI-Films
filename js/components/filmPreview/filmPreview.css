@@ -3,6 +3,7 @@
 }
 .films film-preview{
     width: 270px;
+    height: 480px;
     margin-bottom: 24px;
     cursor: pointer;
     transition: all 400ms cubic-bezier(0.99,-0.99, 0.01, 1.99);
@@ -23,9 +24,6 @@ film-preview:hover {
 }
 
 .film-item {
-    width: 100%;
-    height: 480px;
-    width: 270px;
     cursor: pointer;
     transition: all 400ms cubic-bezier(0.99,-0.99, 0.01, 1.99);
     background: rgba(11,11,11, 0.1);
@@ -42,6 +40,7 @@ film-preview:hover {
     opacity: 0;
     transition: all 400ms linear;
 }
+
 .film-item-fade-cover.on, .film-item-values.on .value {
     opacity: 1;
 }
@@ -94,6 +93,36 @@ film-preview:hover {
 }
 .film-item-header .film-item-menu {
     height: 360px;
+}
+
+.user-profile-films film-preview{
+    width: 135px;
+    height: 240px;
+    margin-bottom: 24px;
+    cursor: pointer;
+    transition: all 400ms cubic-bezier(0.99,-0.99, 0.01, 1.99);
+    /*transform: translateX(200px);*/
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+.user-profile-films .film-item-fade-cover {
+    height: 160px;
+}
+.user-profile-films .film-item-values {
+    height: 80px;
+}
+.user-profile-films .film-item-values .data {
+    font-size: 1em;
+}
+.user-profile-films .film-item-header.slideInDown {
+    height: 160px;
+}
+.user-profile-films .film-item-header .open {
+    height: 80px;
+}
+.user-profile-films .film-item-header .film-item-menu {
+    height: 160px;
 }
 
 
