@@ -22,7 +22,7 @@
       </div>
     </div>
   </nav>
-<main class="container-fluid wrapper">
+<main class="container-fluid">
     <div class="flex wrapper">
         <aside>
             <div class="sidebar-header flex flex-center">
@@ -57,53 +57,59 @@
                 </div>
             </div>
         </aside>
-        <section>
-            <div class="section-header flex flex-center">
-                <div class="res-counter flex flex-start">
-                    <p>
-                        <strong>{{homeCtrl.total | number}}</strong>
-                        películas encontradas en {{homeCtrl.current_cat}}
-                    </p>
+        <section id="st-container" class="st-container flex">
+            <div class="films-section flex flex-column st-content">
+                <div class="section-header flex flex-center">
+                    <div class="res-counter flex flex-start">
+                        <p>
+                            <strong>{{homeCtrl.total | number}}</strong>
+                            películas encontradas en {{homeCtrl.current_cat}}
+                        </p>
+                    </div>
+                    <div class="order-by-container flex flex-end">
+                    <    <select ng-model="homeCtrl.current_sort" ng-change="homeCtrl.sortBy()">
+                            <option
+                                ng-repeat="sorter in homeCtrl.sorters"
+                                value="{{sorter.value}}">{{sorter.display}}</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="order-by-container flex flex-end">
-                    <select ng-model="homeCtrl.current_sort" ng-change="homeCtrl.sortBy()">
-                        <option
-                            ng-repeat="sorter in homeCtrl.sorters"
-                            value="{{sorter.value}}">{{sorter.display}}</option>
-                    </select>
+                <div class="section-content flex flex-space-a flex-wrapper films">
+                    <film-preview
+                        ng-if="homeCtrl.films"
+                        ng-repeat="film in homeCtrl.films"
+                        activatemodal = "homeCtrl.activateModal(film)"
+                        film="film"
+                        films-state="homeCtrl.filmsState"
+                        class="{{film.state}}">
+                    </film-preview>
                 </div>
             </div>
-            <div class="section-content flex flex-space-a flex-wrapper films">
-                <!--
-                    <div class="section-content skeleton flex flex-space-a flex-wrapper films" ng-if="homeCtrl.films.state != 'loaded'">
-                    <div class="film-item">
-                        <div class="film-item-fade-cover">
-
+            <nav ng-class="{'st-menu-open': homeCtrl.userProfile}"
+                    class="user-profile flex flex-column st-menu st-effect-1"
+                    id="menu-1">
+                <div class="user-profile-container flex flex-center flex-column">
+                    <div class="user-profile-header">
+                        <h1>Nombre usuario</h1>
+                    </div>
+                    <div class="user-profile-films section-content flex flex-column flex-center">
+                        <h2>Favoritas</h2>
+                        <p class="btn-circle btn bg-pink white">{{homeCtrl.user.favorites.length}}</p>
+                        <div class="section-content flex-space-a flex">
+                            <film-preview
+                                ng-if="homeCtrl.films"
+                                ng-repeat="film in homeCtrl.user.movies"
+                                activatemodal = "homeCtrl.activateModal(film)"
+                                film="film"
+                                films-state="homeCtrl.filmsState"
+                                class="{{film.state}}">
+                            </film-preview>
                         </div>
-                        <div class="film-item-values"></div>
-                    </div>
-                    <div class="film-item">
-                    <div class="film-item-fade-cover">
-
-                    </div>
-                    <div class="film-item-values"></div>
-                    </div>
-                    <div class="film-item">
-                        <div class="film-item-fade-cover">
-
-                        </div>
-                        <div class="film-item-values"></div>
                     </div>
                 </div>
-            -->
-                <film-preview
-                    ng-if="homeCtrl.films"
-                    ng-repeat="film in homeCtrl.films"
-                    activatemodal = "homeCtrl.activateModal(film)"
-                    film="film"
-                    films-state="homeCtrl.filmsState"
-                    class="{{film.state}}">
-                </film-preview>
+            </nav>
+            <div id="st-trigger-effects">
+                <button data-effect="st-effect-1" ng-click="homeCtrl.showUserProfile()" class="btn btn-circle btn-profile bg-green purple"><i class="fas fa-user"></i></button>
             </div>
         </section>
         <div ng-class="{active: homeCtrl.modal=='active'}" class="film-modal flex flex-end">

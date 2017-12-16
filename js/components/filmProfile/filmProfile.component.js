@@ -17,8 +17,8 @@
             },
         });
 
-    filmProfileController.$inject = ['movieDBProvider', 'OMDBProvider', '$sce'];
-    function filmProfileController(movieDBProvider, OMDBProvider ,$sce) {
+    filmProfileController.$inject = ['localStorageProvider', 'movieDBProvider', 'OMDBProvider', '$sce'];
+    function filmProfileController(localStorageProvider, movieDBProvider, OMDBProvider ,$sce) {
         var vm = this;
 
         //Variables
@@ -26,6 +26,7 @@
         //Functions
         vm.runtimeCalc = runtimeCalc;
         vm.trustInUrl = trustInUrl;
+        vm.add_favorites = add_favorites;
 
         ////////////////
 
@@ -72,6 +73,16 @@
                 let trailer = "https://www.youtube.com/embed/" + res[0].key;
                 vm.film.trailer = trailer;
             })
+        }
+
+        function get_favorites() {
+            return localStorageProvider.get('fav');
+        }
+
+        function add_favorites(fav) {
+            let favorites = get_favorites();
+            favorites.push(fav);
+            localStorageProvider.set('fav', fav);
         }
     }
 })();

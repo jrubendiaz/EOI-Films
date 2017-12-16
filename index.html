@@ -8,7 +8,7 @@
 
 	<!-- Latest compiled and minified JavaScript BootStrap-->
 	<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
-
+	<link href="https://fonts.googleapis.com/css?family=Nunito:200,400,900" rel="stylesheet">
 	<!-- Custom CSS -->
 	<link rel="stylesheet" href="css/styles.css">
 	<!-- Components custom CSS -->
@@ -18,17 +18,16 @@
 	<link rel="stylesheet" href="libs/angular-csp.css">
 	<!-- Angular Sliders -->
 	<link rel="stylesheet" href="libs/rzslider.css">
-	<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
+	<link rel="stylesheet" href="libs/SidebarTransitions/css/component.css">
 
 	<!-- Font Awesome -->
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	<link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
 </head>
 <body ng-app="EOIFilms" ng-view>
 
 
-	<!-- FontAseome -->
-	<script defer src="https://use.fontawesome.com/releases/v5.0.1/js/all.js"></script>
 	<!-- Angular CORE -->
 	<script src="libs/angular.js"></script>
 	<!-- Angular Sanitize -->
@@ -43,6 +42,7 @@
 	<!-- Services -->
 	<script src="js/services/movieDBProvider.factory.js"></script>
 	<script src="js/services/OMDBProvider.factory.js"></script>
+	<script src="js/services/localStorageProvider.factory.js"></script>
 	<!-- Controllers -->
 	<script src="js/controllers/homeController.controller.js"></script>
 	<!-- Components -->
@@ -50,5 +50,8 @@
 	<script src="js/components/filmProfile/filmProfile.component.js"></script>
 	<!-- Sliders -->
 	<script src="libs/rzslider.js"></script>
+	<!-- sidebar effect -->
+	<script src="libs/SidebarTransitions/js/sidebarEffects.js"></script>
+	<!--<script src="libs/SidebarTransitions/js/classie.js"></script>-->
 </body>
 </html>

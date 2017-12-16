@@ -3,7 +3,9 @@
     class="film-profile">
     <div class="overlay">
         <div class="film-profile-header flex flex-center">
-            <h2>{{vm.film.title}}</h2><span class="date">{{vm.film.release_date}}</span>
+            <h2>{{vm.film.title}}</h2>
+            <span class="date">{{vm.film.release_date}}</span>
+            <button ng-click="vm.add_favorites(vm.film.id)">Añadir Fav</button>
         </div>
         <div class="film-profile-content flex flex-center">
             <div class="main-container flex flex-column">

@@ -17,7 +17,7 @@
         const api_key = "api_key=4d664496ab97da469473483e9aa045d6";
         var section = ""
         const v = "3";
-        const base_url = "http://api.themoviedb.org/" + v;
+        const base_url = "https://api.themoviedb.org/" + v;
 
         var films = [];
         var aux_film = {};
@@ -73,12 +73,10 @@
             })
 
             aux_url += aux_arrgs + filters_string + "&" + api_key + aux_page;
-            console.log(aux_url);
             return aux_url;
         }
 
         function getFilms(config) {
-            console.log(config);
             let arrgs = config.arrgs || default_arrgs;
             let filters = config.filters || default_filters;
             let page = config.page || 1;

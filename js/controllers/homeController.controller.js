@@ -5,8 +5,8 @@
         .module('EOIFilms')
         .controller('homeController', homeController);
 
-    homeController.$inject = ['movieDBProvider', '$window', '$document', '$timeout'];
-    function homeController(movieDBProvider, $window, $document, $timeout) {
+    homeController.$inject = ['movieDBProvider', '$window', '$document', '$timeout', 'localStorageProvider'];
+    function homeController(movieDBProvider, $window, $document, $timeout, localStorageProvider) {
         var vm = this;
         //Variables
         vm.films_element = document.querySelector('body');
@@ -29,6 +29,8 @@
         vm.timeoutID;
         vm.time = 100;
         vm.current_sort = "popularity.desc";
+        vm.userProfile = false;
+        vm.user = {};
 
         //Functions
         vm.activateModal = activateModal;
@@ -40,6 +42,7 @@
         vm.handleValoration = handleValoration;
         vm.setArrgs = setArrgs;
         vm.sortBy = sortBy;
+        vm.showUserProfile = showUserProfile;
 
         vm.yearSlider = {
             minValue: 2010,
@@ -111,6 +114,8 @@
         function activate() {
             $window.addEventListener('scroll', lazyLoad);
 
+            loadUserInfo();
+
             //getFilms("topRated", "");
             vm.config.page = vm.page;
             setFilms(movieDBProvider.getFilms(vm.config));
@@ -131,7 +136,11 @@
             let films_container_height = vm.films_element.clientHeight;
             let currentPosition = window.innerHeight + window.scrollY;
             let bottomPosition = document.body.offsetHeight;
+
+            console.log(bottomPosition, currentPosition);
+
             if (currentPosition >= bottomPosition) {
+                console.log("Estoy aquí");
                 window.clearTimeout(vm.timeoutID);
                 vm.config.page++;
                 vm.timeoutID = window.setTimeout(getFilms, 1500);
@@ -249,6 +258,25 @@
             };
             vm.config.filters.push(with_genres);
             getFilms();
+         }
+         function loadUserMovies(ids) {
+            vm.user.movies = [];
+            ids.forEach(id => {
+                movieDBProvider.getMovie(id).then(movie => {
+                    vm.user.movies.push(movie);
+                })
+            })
+         }
+         function loadUserInfo() {
+            vm.user.favorites = localStorageProvider.get('favorites');
+            vm.user.watched = localStorageProvider.get('watched');
+            vm.user.watchLater = localStorageProvider.get('watchLater');
+         }
+         function showUserProfile() {
+             vm.userProfile = !vm.userProfile;
+             if(vm.userProfile) {
+                 loadUserMovies(vm.user.favorites);
+             }
          }
     }
 })();

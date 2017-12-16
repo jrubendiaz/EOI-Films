@@ -1,6 +1,12 @@
+body {
+	font-family: 'Nunito', sans-serif;
+}
 .wrapper {
 	width: 1170px;
 	margin: 0 auto;
+}
+.wrapper.full {
+	width: 100%;
 }
 h1, h2, h3, h4 {
 	margin: 0;
@@ -116,6 +122,9 @@ aside {
 .section-content {
 	width: 100%;
 }
+.films-section.mini {
+	width: 720px;
+}
 .film-modal {
 	z-index: 99;
 	opacity: 0;
@@ -150,8 +159,132 @@ aside {
 	border-color: red;
 	opacity: 0.5;
 }
+.btn {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    min-height: 36px;
+    min-width: 88px;
+    line-height: 36px;
+    vertical-align: middle;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 2px;
+    box-sizing: border-box;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    outline: none;
+    border: 0;
+    padding: 0 6px;
+    margin: 6px 8px;
+    background: transparent;
+    color: currentColor;
+    white-space: nowrap;
+    text-transform: uppercase;
+    font-weight: 900;
+    font-size: 14px;
+    font-style: inherit;
+    font-variant: inherit;
+    font-family: inherit;
+    text-decoration: none;
+    overflow: hidden;
+    -webkit-transition: box-shadow .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1);
+    transition: box-shadow .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1);
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+}
+.btn-circle {
+    z-index: 20;
+    line-height: 56px;
+    min-width: 0;
+    width: 56px;
+    height: 56px;
+    vertical-align: middle;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+    border-radius: 50%;
+    background-clip: padding-box;
+    overflow: hidden;
+    -webkit-transition: all .3s cubic-bezier(.55,0,.55,.2);
+    transition: all .3s cubic-bezier(.55,0,.55,.2);
+    -webkit-transition-property: background-color,box-shadow,-webkit-transform;
+    transition-property: background-color,box-shadow,-webkit-transform;
+    transition-property: background-color,box-shadow,transform;
+    transition-property: background-color,box-shadow,transform,-webkit-transform;
+}
+/* Colors */
+.bg-soft {
+    background-color: rgba(244,244,244, 0.9);
+}
+.soft {
+    color: rgba(100,100,100, 0.1);
+}
+.light-soft {
+    color: rgba(244,244,244, 0.9);
+}
+.purple {
+    color: #38003c;
+}
+.bg-purple {
+    background-color: #38003c;
+    color: #ffffff;
+}
+.white {
+    color: #ffffff;
+}
+.bg-white {
+    background-color: #ffffff;
+}
+.pink {
+    color: #e90052;
+    border-color: #e90052;
+}
+.bg-pink {
+    background-color: #e90052;
+}
+.green {
+    color: #00FE89;
+    border-color: #00FE89;
+}
+.bg-green {
+    background-color: #00FE89;
+}
+.bg-github {
+    background-color: #23292D;
+}
+.bg-facebook {
+    background-color: #4367B0;
+}
+.bg-googleplus {
+    background-color: #DA4437;
+}
 
+/* USER PROFILE */
+.user-profile.st-menu {
+	background-color: #F2EEE0;
+	width: 100%;
+}
 
+/* FIXED PROFILE BUTTON */
+.btn-profile {
+	visibility: visible;
+	position: fixed;
+	right: 5px;
+	top: 10vh;
+	z-index: 999;
+	transition: all 400ms ease-in;
+}
+
+/* EFECTO PARA EL USER */
+
+.st-menu-open.st-menu.user-profile {
+	transform: translate3d(0, 0, 0);
+}
+.films-section.st-content {
+	overflow: auto;
+}
 
 
 

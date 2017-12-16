@@ -19,21 +19,29 @@
             },
         });
 
-    filmPreviewController.$inject = ['$timeout'];
-    function filmPreviewController($timeout) {
+    filmPreviewController.$inject = ['$timeout', 'localStorageProvider', 'movieDBProvider'];
+    function filmPreviewController($timeout, localStorageProvider, movieDBProvider) {
         var vm = this;
 
+        //Variables
+        vm.menuState = false;
+
+        //Functions
         vm.activate = activate;
+        vm.toogleMenuState = toogleMenuState;
+        vm.addTo = addTo;
 
         ////////////////
 
         vm.$onInit = function() {
-            console.log(vm.filmsState);
             $timeout(loaded, 1000);
          };
         vm.$onChanges = function(changesObj) { };
         vm.$onDestroy = function() { };
 
+        function toogleMenuState() {
+            vm.menuState = !vm.menuState;
+        }
         function activate(){
             vm.activatemodal(vm.film);
         }
@@ -43,6 +51,9 @@
         }
         function showMe(){
             vm.state = "on";
+        }
+        function addTo(cat) {
+            localStorageProvider.set(cat, vm.film.id);
         }
     }
 })();
