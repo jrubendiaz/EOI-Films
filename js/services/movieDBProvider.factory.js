@@ -124,7 +124,6 @@
                     ratings: [],
                     ...res.data
                 }
-                console.log(aux_film);
                 return aux_film;
             })
         }

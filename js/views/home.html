@@ -14,11 +14,13 @@
           </ul>
       </div>
       <div class="search-bar flex flex-end">
-          <div class="input-group">
-            <span class="input-group-addon" id="sizing-addon2"><i class="fa fa-search" aria-hidden="true"></i></span>
-            <input ng-model="homeCtrl.title" type="text" class="form-control" placeholder="Búsqueda por título" aria-describedby="sizing-addon2">
-          </div>
-          <button class="btn" ng-click="homeCtrl.newSearch('byTitle', homeCtrl.title)">Buscar</button>
+            <div class="form-contaier flex flex-center">
+                <div class="input-group flex flex-center">
+                    <span class="input-group-addon" id="sizing-addon2"><i class="fa fa-search" aria-hidden="true"></i></span>
+                    <input ng-change="homeCtrl.newSearch()" ng-model="homeCtrl.title" type="text" class="form-control white" placeholder="Búsqueda por título" aria-describedby="sizing-addon2">
+                </div>
+                <button class="btn bg-soft white" ng-click="homeCtrl.newSearch('byTitle', homeCtrl.title)">Buscar</button>
+            </div>
       </div>
     </div>
   </nav>
@@ -36,7 +38,6 @@
             </div>
             <div class="sidebar-widgets flex flex-column">
                 <div class="widget slides">
-                        <button ng-click="homeCtrl.getFilms('byFilters')"> FILTRAR </button>
 
                         <small>Año</small>
                         <rzslider ng-model="homeCtrl.yearSlider.minValue"
@@ -60,14 +61,14 @@
         <section id="st-container" class="st-container flex">
             <div class="films-section flex flex-column st-content">
                 <div class="section-header flex flex-center">
-                    <div class="res-counter flex flex-start">
+                    <div class="res-counter flex flex-center flex-start">
                         <p>
                             <strong>{{homeCtrl.total | number}}</strong>
-                            películas encontradas en {{homeCtrl.current_cat}}
+                            películas encontradas en {{homeCtrl.config.arrgs[0]}}
                         </p>
                     </div>
                     <div class="order-by-container flex flex-end">
-                    <    <select ng-model="homeCtrl.current_sort" ng-change="homeCtrl.sortBy()">
+                        <select class="btn bg-soft flex flex-start" ng-model="homeCtrl.current_sort" ng-change="homeCtrl.sortBy()">
                             <option
                                 ng-repeat="sorter in homeCtrl.sorters"
                                 value="{{sorter.value}}">{{sorter.display}}</option>
@@ -76,6 +77,7 @@
                 </div>
                 <div class="section-content flex flex-space-a flex-wrapper films">
                     <film-preview
+                        ng-click="film.state='show'"
                         ng-if="homeCtrl.films"
                         ng-repeat="film in homeCtrl.films"
                         activatemodal = "homeCtrl.activateModal(film)"
@@ -95,15 +97,15 @@
                     <div class="user-profile-nav flex flex-space-b">
                         <div class="opt flex flex-column flex-center">
                             <h2>Favoritas</h2>
-                            <p class="btn-circle btn bg-pink white">{{homeCtrl.user.favorites.length}}</p>
+                            <button ng-click="homeCtrl.loadUserMovies(homeCtrl.user.favorites)" class="btn-circle btn bg-pink white">{{homeCtrl.user.favorites.length}}</button>
                         </div>
                         <div class="opt flex flex-column flex-center">
                             <h2>Vistas</h2>
-                            <p class="btn-circle btn bg-pink white">{{homeCtrl.user.watched.length}}</p>
+                            <button ng-click="homeCtrl.loadUserMovies(homeCtrl.user.watched)"  class="btn-circle btn bg-pink white">{{homeCtrl.user.watched.length}}</button>
                         </div>
                         <div class="opt flex flex-column flex-center">
                             <h2>Para más tarde</h2>
-                            <p class="btn-circle btn bg-pink white">{{homeCtrl.user.watchLater.length}}</p>
+                            <button ng-click="homeCtrl.loadUserMovies(homeCtrl.user.watchLater)"  class="btn-circle btn bg-pink white">{{homeCtrl.user.watchLater.length}}</button>
                         </div>
                     </div>
 
@@ -122,11 +124,11 @@
                 </div>
             </nav>
             <div id="st-trigger-effects">
-                <button data-effect="st-effect-1" ng-click="homeCtrl.showUserProfile()" class="btn btn-circle btn-profile bg-green purple"><i class="fas fa-user"></i></button>
+                <button data-effect="st-effect-1" ng-click="homeCtrl.showUserProfile(homeCtrl.user.favorites)" class="btn btn-circle btn-profile bg-green purple"><i class="fas fa-user"></i></button>
             </div>
         </section>
         <div ng-class="{active: homeCtrl.modal=='active'}" class="film-modal flex flex-end">
-            <button class="btn btn-close-modal" ng-click="homeCtrl.modal='inactive'">cerrar</button>
+            <button class="btn btn-circle btn-close-modal bg-pink white" ng-click="homeCtrl.modal='inactive'"><i class="fas fa-times"></i></button>
             <div class="film-profile-container">
                 <film-profile
                     ng-if="homeCtrl.modal=='active'"

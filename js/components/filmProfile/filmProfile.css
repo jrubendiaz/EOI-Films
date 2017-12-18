@@ -1,36 +1,54 @@
 .film-profile{
     height: 100vh;
     width: 100%;
+    padding-right: 10%;
+    position: absolute;
+    overflow: auto;
     background-size: cover;
     background-repeat: no-repeat;
 }
-.film-profile .overlay{
-    width: 100%;
-    height: 100vh;
-    background-color: rgba(244,244,244, 0.8);
-}
-.film-profile-content {
-    height: 55vh;
-    width: 100%;
-}
+
 .film-profile-header {
     height: 10vh;
     width: 100%;
 }
-.film-profile-footer {
-    height: 35vh;
+.film-profile-content {
+    height: 70vh;
     width: 100%;
 }
+.main-container {
+    height: 70vh;
+    padding: 6px 18px;
+}
+.poster-container {
+    height: 60vh;
+}
+
+.film-profile-footer {
+    /*height: 32vh;*/
+    width: 100%;
+}
+.info-header {
+    width: 100%;
+}
+.info-container {
+    width: 100%;
+}
+.info-header > div {
+    flex: 1;
+}
+.details > div {
+    flex: 1;
+}
+
 film-profile .poster-container img{
-    max-height: 55vh;
+    max-height: 60vh;
 }
 
 film-profile .categories small{
     padding: 6px 12px;
     margin-right: 6px;
     border-radius: 6px;
-    background-color: black;
-    color: white;
 }
 .film-profile-footer .similar-films-container {
     width: 20%;

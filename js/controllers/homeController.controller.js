@@ -31,6 +31,7 @@
         vm.current_sort = "popularity.desc";
         vm.userProfile = false;
         vm.user = {};
+        vm.flag = false;
 
         //Functions
         vm.activateModal = activateModal;
@@ -43,9 +44,10 @@
         vm.setArrgs = setArrgs;
         vm.sortBy = sortBy;
         vm.showUserProfile = showUserProfile;
+        vm.loadUserMovies = loadUserMovies;
 
         vm.yearSlider = {
-            minValue: 2010,
+            minValue: 1979,
             maxValue: 2017,
             options: {
                 floor: 1979,
@@ -55,7 +57,7 @@
             }
         };
         vm.imbdSlider = {
-            minValue: 5,
+            minValue: 0,
             maxValue: 10,
             options: {
                 floor: 0,
@@ -123,6 +125,7 @@
                 vm.genres = genres;
                 vm.genres.forEach(gen => {
                     gen.state = "no-selected";
+                    gen.name = gen.name.split(" ")[0];
                 })
             })
 
@@ -144,14 +147,18 @@
             }
          }
          function changePreviewState() {
-             let time = 20;
-             let increment = 20;
-             vm.films.forEach((film, index) => {
+            let time = 0;
+            let increment = 0;
+            let aux_index = "ini";
+
+            vm.films.forEach((film, index) => {
                 if((index % 20) == 0 && index != 0) {
+                    vm.flag = true;
                     time = time - (increment*20);
                 }
-                //time = time + increment;
+
                 $timeout(() => {film.state = "animated fadeIn"}, time);
+
              })
          }
          function setFilms(api_res) {
@@ -172,8 +179,23 @@
              })
          }
          function newSearch() {
-            vm.films = [];
-            getFilms();
+            let query = {
+                name: "query",
+                value: vm.title
+            };
+            let search = vm.config.filters.find(f => f.name == query.name);
+            search ? search.value = query.value : vm.config.filters.push(query);
+
+            if(query.value.length > 2) {
+                vm.films = [];
+                vm.config.arrgs = ["search", "movie"];
+                window.clearTimeout(vm.timeoutID);
+                vm.timeoutID = window.setTimeout(getFilms, 1000);
+            }
+            if(query.value.length == 0) {
+                vm.config.arrgs = ["discover", "movie"];
+                getFilms();
+            }
          }
 
          function handleDates() {
@@ -194,6 +216,7 @@
              let max = vm.config.filters.find(f => f.name == release_dateMAX.name);
              max ? max.value = release_dateMAX.value : vm.config.filters.push(release_dateMAX);
 
+             vm.config.arrgs = ["discover", "movie"];
              getFilms();
          }
          function handleValoration() {
@@ -213,6 +236,7 @@
             let max = vm.config.filters.find(f => f.name == max_val.name);
             max ? max.value = max_val.value : vm.config.filters.push(max_val)
 
+            vm.config.arrgs = ["discover", "movie"];
             getFilms();
          }
 
@@ -223,7 +247,6 @@
                 value: vm.current_sort
             };
             let sort = vm.config.filters.find(f => f.name == sortBy.name);
-            console.log(sort);
             sort ? sort.value = sortBy.value : vm.config.filters.push(sortBy);
 
             getFilms();
@@ -254,8 +277,11 @@
                 value: vm.selected_genres
             };
             vm.config.filters.push(with_genres);
+            vm.config.arrgs = ["discover", "movie"];
             getFilms();
          }
+
+         /* TODO --> SEPARAR USERPROFILE COMPONENT */
          function loadUserMovies(ids) {
             vm.user.movies = [];
             ids.forEach(id => {
@@ -269,11 +295,11 @@
             vm.user.watched = localStorageProvider.get('watched');
             vm.user.watchLater = localStorageProvider.get('watchLater');
          }
-         function showUserProfile() {
+         function showUserProfile(list) {
              vm.userProfile = !vm.userProfile;
              if(vm.userProfile) {
                  loadUserInfo();
-                 loadUserMovies(vm.user.favorites);
+                 loadUserMovies(list);
              }
          }
     }
