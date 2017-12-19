@@ -45,6 +45,7 @@
         vm.sortBy = sortBy;
         vm.showUserProfile = showUserProfile;
         vm.loadUserMovies = loadUserMovies;
+        vm.resetFilters = resetFilters;
 
         vm.yearSlider = {
             minValue: 1979,
@@ -266,6 +267,12 @@
              vm.currentFilm = film;
          }
          function addSelectedGenres(genre) {
+             if(genre == "") {
+                 vm.genres.forEach(g => {
+                     g.state = "no-selected";
+                 })
+                 return
+             }
              vm.films = [];
             (genre.state == "selected") ? genre.state = "no-selected" : genre.state = "selected";
             vm.selected_genres = [];
@@ -301,6 +308,37 @@
                  loadUserInfo();
                  loadUserMovies(list);
              }
+         }
+         function resetFilters() {
+             vm.config.filters = [
+                {
+                    name: "sort_by",
+                    value: "popularity.desc"
+                }
+            ];
+            vm.selected_genres = [];
+            vm.addSelectedGenres("");
+            vm.yearSlider = {
+                minValue: 1979,
+                maxValue: 2017,
+                options: {
+                    floor: 1979,
+                    ceil: 2017,
+                    step: 1,
+                    onEnd: vm.handleDates,
+                }
+            };
+            vm.imbdSlider = {
+                minValue: 0,
+                maxValue: 10,
+                options: {
+                    floor: 0,
+                    ceil: 10,
+                    step: 1,
+                    onEnd: vm.handleValoration,
+                }
+            };
+             getFilms();
          }
     }
 })();

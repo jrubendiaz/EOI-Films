@@ -6,33 +6,46 @@
     overflow: auto;
     background-size: cover;
     background-repeat: no-repeat;
+    background-color: #ffffff;
 }
 
 .film-profile-header {
-    height: 10vh;
+    height: 120px;
     width: 100%;
+    padding: 0px 18px;
+}
+.film-profile-header h2 {
+    color: #1b2126;
+    font-size: 3.5em;
+    margin-right: 15px;
+}
+.info-header .duration {
+    font-size: 2em;
+    color: #a4a8ac;
+}
+.film-profile-header span {
+    color: #a4a8ac;
+    font-size: 2em;
+    align-self: flex-end;
 }
 .film-profile-content {
-    height: 70vh;
+    padding: 0px 18px 75px 0px;
+    margin-left: 18px;
+    border-bottom: 1px solid #e9ecee;
     width: 100%;
 }
 .main-container {
-    height: 70vh;
-    padding: 6px 18px;
-}
-.poster-container {
-    height: 60vh;
+    height: 600px;
+    padding: 6px 0px 6px 35px;
 }
 
 .film-profile-footer {
-    /*height: 32vh;*/
     width: 100%;
+    padding: 20px 18px 50px 18px;
 }
-.info-header {
-    width: 100%;
-}
-.info-container {
-    width: 100%;
+
+.main-contaier h3 {
+    font-size: 2.5em;
 }
 .info-header > div {
     flex: 1;
@@ -40,22 +53,45 @@
 .details > div {
     flex: 1;
 }
-
+.overview {
+    padding-bottom: 15px;
+}
+.overview p {
+    font-size: 1.6em;
+    color: #8e9297;
+}
 film-profile .poster-container img{
-    max-height: 60vh;
+    height: 600px;
+    width: 440px;
 }
 
 film-profile .categories small{
     padding: 6px 12px;
     margin-right: 6px;
     border-radius: 6px;
+    background-color: #e9ecee;
+    font-size: 1.4em;
+    color: #5c6269;
+}
+.film-profile-footer .films-container {
+    width: 100%;
 }
 .film-profile-footer .similar-films-container {
-    width: 20%;
+    width: 25%;
+}
+.film-profile-footer .similar-films-container p {
+    font-size: 2.5em;
+    color: #1b2126;
+}
+.film-profile-footer .title {
+    align-self: flex-start;
+}
+.film-profile-footer .title h3 {
+    font-size: 1.6em;
 }
 .similar-films-container img {
     max-width: 100%;
-    height: 150px;
+    height: 240px;
 }
 .similar-films-container p {
     text-align: center;

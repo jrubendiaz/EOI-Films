@@ -146,6 +146,11 @@ film-preview .film-info {
     display: none;
 }
 
+/* PARA BORRAR */
+film-preview .nav {
+    display: none;
+}
+
 
 @keyframes placeHolderShimmer{
     0%{

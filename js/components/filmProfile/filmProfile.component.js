@@ -36,6 +36,7 @@
                 //Load details of the current movie
                 movieDBProvider.getMovie(vm.film.id).then(movie => {
                     vm.film = {
+                        year: movie.release_date.split("-")[0],
                         ...aux_movie,
                         ...movie,
                     };
@@ -44,7 +45,7 @@
 
                 //Load similar films fo the current movie
                 movieDBProvider.getSimilar(vm.film.id).then(movies => {
-                    vm.similarFilms = movies.films.slice(0, 6);
+                    vm.similarFilms = movies.films.slice(0, 4);
                 })
             }
         };
@@ -55,7 +56,7 @@
         function runtimeCalc(runtime) {
             let h = Math.floor(runtime/60);
             let m = runtime % 60;
-            return h + ' horas y ' + m + ' minutos';
+            return h + 'h' + m + ' m';
         }
         //Adding ratings and trailers to the movies
         function addRatings() {

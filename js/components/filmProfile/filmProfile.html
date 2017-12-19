@@ -1,21 +1,23 @@
 <div
     class="film-profile">
         <div class="film-profile-header flex flex-center flex-start">
-            <h2>{{vm.film.title}}</h2>
-            <span class="date flex flex-end">{{vm.film.release_date}}</span>
+            <div class="title-group flex">
+                <h2>{{vm.film.title}}</h2>
+                <span class="date flex flex-end">{{vm.film.year}}</span>
+            </div>
         </div>
 
-        <div class="film-profile-content flex flex-center">
+        <div class="film-profile-content flex flex-center pb-15">
 
             <div class="poster-container flex flex-center">
                 <img src="{{vm.film.poster}}" alt="vm.film.title">
             </div>
 
-            <div class="main-container flex flex-column">
+            <div class="main-container flex flex-column pb-15">
 
-                <div class="info-container">
+                <div class="info-container pb-15">
 
-                    <div class="info-header flex">
+                    <div class="info-header flex pb-15">
                         <div class="title flex flex-start">
                             <h3>Sinopsis</h3>
                         </div>
@@ -24,10 +26,10 @@
                         </div>
                     </div>
 
-                    <div class="details flex flex-center">
+                    <div class="details flex flex-center pb-15">
 
                         <div class="categories flex flex-start">
-                            <small class="bg-soft-dark" ng-repeat="genre in vm.film.genres">{{genre.name}}</small>
+                            <small ng-repeat="genre in vm.film.genres">{{genre.name}}</small>
                         </div>
 
                         <div class="ratings flex flex-end">
@@ -38,12 +40,12 @@
 
                     </div>
 
-                    <div class="overview">
+                    <div class="overview pb-15">
                         <p>{{vm.film.overview}}</p>
                     </div>
                 </div>
                 <div class="trailer-container flex flex-column">
-                    <div class="title">
+                    <div class="title pb-15">
                         <h3>Trailer</h3>
                     </div>
                     <div class="trailer flex flex-center">
@@ -53,8 +55,8 @@
             </div>
 
         </div>
-        <div class="film-profile-footer flex flex-column flex-center flex-space-b">
-            <div class="title">
+        <div class="film-profile-footer flex flex-column flex-center flex-space-b pb-15">
+            <div class="title pb-15">
                 <h3>Películas similares</h3>
             </div>
             <div class="films-container flex">
