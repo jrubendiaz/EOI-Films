@@ -71,8 +71,10 @@
 
         function getTrailers() {
             movieDBProvider.getTrailers(vm.film.id).then(res => {
-                let trailer = "https://www.youtube.com/embed/" + res[0].key;
-                vm.film.trailer = trailer;
+                if(res[0].key) {
+                    let trailer = "https://www.youtube.com/embed/" + res[0].key;
+                    vm.film.trailer = trailer;
+                }
             })
         }
 

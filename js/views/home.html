@@ -19,16 +19,18 @@
                     <span class="input-group-addon" id="sizing-addon2"><i class="fa fa-search" aria-hidden="true"></i></span>
                     <input ng-change="homeCtrl.newSearch()" ng-model="homeCtrl.title" type="text" class="form-control white" placeholder="Búsqueda por título" aria-describedby="sizing-addon2">
                 </div>
-                <div id="st-trigger-effects">
+                <div ng-if="homeCtrl.user.email" id="st-trigger-effects">
                     <button data-effect="st-effect-1" ng-click="homeCtrl.showUserProfile(homeCtrl.user.favorites)" class="btn"><i class="fas fa-user"></i></button>
                 </div>
+                <button ng-click="homeCtrl.logout()"  ng-if="homeCtrl.user.email" class="btn btn-circle bg-soft"><i class="fas fa-sign-out-alt"></i></button>
+                <button ng-click="homeCtrl.goLogin()"  ng-if="!homeCtrl.user.email" class="btn btn-circle bg-soft"><i class="fas fa-sign-in-alt"></i></button>
             </div>
       </div>
     </div>
   </nav>
 <main class="container-fluid">
     <div class="flex wrapper">
-        <aside>
+        <aside class="{{homeCtrl.config.arrgs[0]}}">
             <div class="sidebar-header flex flex-center">
                 <div class="option option-iconic col col-sm-6 flex flex-center">
                     <i class="fa fa-sliders" aria-hidden="true"></i>
@@ -60,7 +62,7 @@
                 </div>
             </div>
         </aside>
-        <section id="st-container" class="st-container flex">
+        <section id="st-container" class="st-container flex {{homeCtrl.config.arrgs[0]}}">
             <div class="films-section flex flex-column st-content">
                 <div class="section-header flex flex-center">
                     <div class="res-counter flex flex-center flex-start">
@@ -83,6 +85,7 @@
                         ng-repeat="film in homeCtrl.films"
                         activatemodal = "homeCtrl.activateModal(film)"
                         film="film"
+                        user="homeCtrl.user"
                         films-state="homeCtrl.filmsState"
                         class="{{film.state}}">
                     </film-preview>
@@ -93,17 +96,19 @@
                     id="menu-1">
                 <div class="user-profile-container flex flex-center flex-column">
                     <div class="user-profile-header">
-                        <h1>Nombre usuario</h1>
+                        <h1>{{homeCtrl.user.email}}</h1>
                     </div>
                     <div class="user-profile-nav flex flex-space-b">
                         <div class="opt flex flex-column flex-center">
                             <h2>Favoritas</h2>
                             <button ng-click="homeCtrl.loadUserMovies(homeCtrl.user.favorites)" class="btn-circle btn bg-pink white">{{homeCtrl.user.favorites.length}}</button>
                         </div>
+                        <!--
                         <div class="opt flex flex-column flex-center">
                             <h2>Vistas</h2>
                             <button ng-click="homeCtrl.loadUserMovies(homeCtrl.user.watched)"  class="btn-circle btn bg-pink white">{{homeCtrl.user.watched.length}}</button>
                         </div>
+                        -->
                         <div class="opt flex flex-column flex-center">
                             <h2>Para más tarde</h2>
                             <button ng-click="homeCtrl.loadUserMovies(homeCtrl.user.watchLater)"  class="btn-circle btn bg-pink white">{{homeCtrl.user.watchLater.length}}</button>

@@ -1,6 +1,5 @@
 <div
-    class="film-item flex flex-column"
-    ng-click="vm.activate()">
+    class="film-item flex flex-column">
 
     <div class="skeleton film-item-fade-cover flex flex-center"
          ng-if="vm.filmsState != 'loaded'">
@@ -23,8 +22,8 @@
                 class="film-item-menu flex flex-center">
                 <button class="btn btn-circle bg-pink white" ng-click="vm.activate()"><i class="fas fa-eye"></i></button>
                 <!-- <button class="btn btn-circle bg-pink" ng-click="vm.addTo('watched')"><i class="fas fa-eye"></i></button> -->
-                <button class="btn btn-circle bg-pink white" ng-click="vm.addTo('favorites')"><i class="fas fa-heart"></i></button>
-                <button class="btn btn-circle bg-pink white" ng-click="vm.addTo('watchLater')"><i class="fas fa-clock"></i></button>
+                <button class="btn btn-circle bg-pink white" ng-click="vm.addToFavorite()"><i class="fas fa-heart"></i></button>
+                <button class="btn btn-circle bg-pink white" ng-click="vm.addToWatchLater()"><i class="fas fa-clock"></i></button>
             </div>
         </div>
     </div>

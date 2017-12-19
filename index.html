@@ -28,6 +28,7 @@
 <body ng-app="EOIFilms" ng-view>
 
 
+
 	<!-- Angular CORE -->
 	<script src="libs/angular.js"></script>
 	<!-- Angular Sanitize -->
@@ -37,14 +38,28 @@
 	<!-- Firebase + AngularFire -->
 	<script src="libs/angularfire.js"></script>
 	<script src="libs/firebase/firebase.js"></script>
+	<script>
+	// Initialize Firebase
+		var config = {
+			apiKey: "AIzaSyAyXqQUGUc3xbqPeTeG9sX0cLPbk9fHpfw",
+			authDomain: "angular-contacts-76395.firebaseapp.com",
+			databaseURL: "https://angular-contacts-76395.firebaseio.com",
+			projectId: "angular-contacts-76395",
+			storageBucket: "angular-contacts-76395.appspot.com",
+			messagingSenderId: "193622058885"
+		};
+		firebase.initializeApp(config);
+	</script>
 	<!-- Main App Config -->
 	<script src="js/app.config.js"></script>
 	<!-- Services -->
 	<script src="js/services/movieDBProvider.factory.js"></script>
 	<script src="js/services/OMDBProvider.factory.js"></script>
 	<script src="js/services/localStorageProvider.factory.js"></script>
+	<script src="js/services/firebaseProvider.factory.js"></script>
 	<!-- Controllers -->
 	<script src="js/controllers/homeController.controller.js"></script>
+	<script src="js/controllers/loginController.controller.js"></script>
 	<!-- Components -->
 	<script src="js/components/filmPreview/filmPreview.component.js"></script>
 	<script src="js/components/filmProfile/filmProfile.component.js"></script>
