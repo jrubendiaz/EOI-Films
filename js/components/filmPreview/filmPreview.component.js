@@ -33,6 +33,7 @@
         vm.addTo = addTo;
         vm.addToFavorite = addToFavorite;
         vm.addToWatchLater = addToWatchLater;
+        vm.removeFromFavorite = removeFromFavorite;
 
         ////////////////
 
@@ -60,6 +61,18 @@
             console.log(vm.user);
             firebaseProvider.saveUser(vm.user, vm.film.id);
         }
+        /* TODO --> IMPLEMENTAR */
+
+        function removeFromFavorite(id) {
+            console.log("Antes de borrar: " + vm.user)
+            vm.user.favorites.find((fav, index) => {
+                if(fav.id == id) {
+                    delete vm.user.favorites[index];
+                }
+            })
+            console.log("Después de borrar: " + vm.user);
+        }
+
         function addToFavorite() {
             if(!vm.user.favorites) {
                 vm.user.favorites = [];

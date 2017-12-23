@@ -7,10 +7,10 @@
               </a>
           </div>
           <ul class="nav navbar-nav">
+            <li><a ng-click="homeCtrl.setArrgs('discover-movie')">Discover</a></li>
             <li><a ng-click="homeCtrl.setArrgs('movie-popular')">Populares ahora</a></li>
             <li><a ng-click="homeCtrl.setArrgs('movie-top_rated')">Mejor valoradas</a></li>
             <li><a ng-click="homeCtrl.setArrgs('movie-upcoming')">Próximamente</a></li>
-            <li><a ng-click="homeCtrl.setArrgs('discover-movie')">Discover</a></li>
           </ul>
       </div>
       <div class="search-bar flex flex-end">
@@ -32,12 +32,8 @@
     <div class="flex wrapper">
         <aside class="{{homeCtrl.config.arrgs[0]}}">
             <div class="sidebar-header flex flex-center">
-                <div class="option option-iconic col col-sm-6 flex flex-center">
-                    <i class="fa fa-sliders" aria-hidden="true"></i>
-                    <label> Filtrar </label>
-                </div>
-                <div class="option option-del col col-sm-6 flex flex-center">
-                    <label ng-click="homeCtrl.resetFilters()"> Borrar </label>
+                <div class="option option-iconic col col-sm-12 flex flex-center">
+                    <button class="btn bg-soft soft" ng-click="homeCtrl.resetFilters()"> Limpiar filtros </button>
                 </div>
             </div>
             <div class="sidebar-widgets flex flex-column">

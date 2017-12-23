@@ -270,7 +270,7 @@ aside {
 	background-color: rgba(11,11,11, 0.3);
 }
 .soft {
-    color: rgba(100,100,100, 0.1);
+    color: #5B6168;
 }
 .light-soft {
     color: rgba(244,244,244, 0.9);
@@ -310,6 +310,9 @@ aside {
 }
 .bg-googleplus {
     background-color: #DA4437;
+}
+.bg-bluety {
+	background-color: #11B9EF;
 }
 
 /* USER PROFILE */
