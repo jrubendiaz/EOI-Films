@@ -16,11 +16,12 @@
                 film: '=',
                 activatemodal: "&",
                 filmsState: '=',
+                user: '=',
             },
         });
 
-    filmPreviewController.$inject = ['$timeout', 'localStorageProvider', 'movieDBProvider'];
-    function filmPreviewController($timeout, localStorageProvider, movieDBProvider) {
+    filmPreviewController.$inject = ['$timeout', 'localStorageProvider', 'movieDBProvider', 'firebaseProvider'];
+    function filmPreviewController($timeout, localStorageProvider, movieDBProvider, firebaseProvider) {
         var vm = this;
 
         //Variables
@@ -30,6 +31,9 @@
         vm.activate = activate;
         vm.toogleMenuState = toogleMenuState;
         vm.addTo = addTo;
+        vm.addToFavorite = addToFavorite;
+        vm.addToWatchLater = addToWatchLater;
+        vm.removeFromFavorite = removeFromFavorite;
 
         ////////////////
 
@@ -53,7 +57,37 @@
             vm.state = "on";
         }
         function addTo(cat) {
-            localStorageProvider.set(cat, vm.film.id);
+            //localStorageProvider.set(cat, vm.film.id);
+            console.log(vm.user);
+            firebaseProvider.saveUser(vm.user, vm.film.id);
+        }
+        /* TODO --> IMPLEMENTAR */
+
+        function removeFromFavorite(id) {
+            console.log("Antes de borrar: " + vm.user)
+            vm.user.favorites.find((fav, index) => {
+                if(fav.id == id) {
+                    delete vm.user.favorites[index];
+                }
+            })
+            console.log("Después de borrar: " + vm.user);
+        }
+
+        function addToFavorite() {
+            if(!vm.user.favorites) {
+                vm.user.favorites = [];
+            }
+            vm.user.favorites.push(vm.film.id);
+            console.log(vm.user);
+            firebaseProvider.saveUser(vm.user);
+        }
+        function addToWatchLater() {
+            if(!vm.user.watchLater) {
+                vm.user.watchLater = [];
+            }
+            vm.user.watchLater.push(vm.film.id);
+            console.log(vm.user);
+            firebaseProvider.saveUser(vm.user);
         }
     }
 })();

@@ -102,6 +102,7 @@ film-preview:hover {
     height: 80px;
     width: 100%;
 }
+
 .film-item-header.slideInDown {
     height: 400px;
     background-color: rgba(244,244,244,0.8);
@@ -145,6 +146,7 @@ film-preview:hover {
 film-preview .film-info {
     display: none;
 }
+
 
 
 @keyframes placeHolderShimmer{

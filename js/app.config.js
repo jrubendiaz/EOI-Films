@@ -12,5 +12,10 @@
                 templateUrl: 'js/views/home.html',
                 controllerAs: 'homeCtrl'
             })
+            .when("/login", {
+                controller: 'loginController',
+                templateUrl: 'js/views/login.html',
+                controllerAs: 'loginCtrl'
+            })
     }
 })();

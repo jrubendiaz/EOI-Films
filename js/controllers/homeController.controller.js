@@ -5,8 +5,8 @@
         .module('EOIFilms')
         .controller('homeController', homeController);
 
-    homeController.$inject = ['movieDBProvider', '$window', '$document', '$timeout', 'localStorageProvider'];
-    function homeController(movieDBProvider, $window, $document, $timeout, localStorageProvider) {
+    homeController.$inject = ['movieDBProvider', '$window', '$document', '$timeout', 'localStorageProvider', 'firebaseProvider', '$location'];
+    function homeController(movieDBProvider, $window, $document, $timeout, localStorageProvider, firebaseProvider, $location) {
         var vm = this;
         //Variables
         vm.films_element = document.querySelector('body');
@@ -30,8 +30,13 @@
         vm.time = 100;
         vm.current_sort = "popularity.desc";
         vm.userProfile = false;
-        vm.user = {};
+        vm.user = {
+            email: "",
+            favorites: "",
+            watchLater: "",
+        };
         vm.flag = false;
+
 
         //Functions
         vm.activateModal = activateModal;
@@ -45,6 +50,9 @@
         vm.sortBy = sortBy;
         vm.showUserProfile = showUserProfile;
         vm.loadUserMovies = loadUserMovies;
+        vm.resetFilters = resetFilters;
+        vm.logout = logout;
+        vm.goLogin = goLogin;
 
         vm.yearSlider = {
             minValue: 1979,
@@ -134,6 +142,19 @@
                 last: vm.yearSlider.maxValue
             }
 
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                  console.log(user);
+                  vm.user = firebaseProvider.getUser(user.uid);
+                  console.log(vm.user);
+                  vm.user.email = user.email;
+                  //firebaseProvider.saveUser(vm.user);
+                  console.log(vm.user);
+                } else {
+                  console.log("No hay usuario logueado");
+                }
+              });
+
          }
          function lazyLoad(e) {
             let films_container_height = vm.films_element.clientHeight;
@@ -151,18 +172,16 @@
             let increment = 0;
             let aux_index = "ini";
 
+
             vm.films.forEach((film, index) => {
                 if((index % 20) == 0 && index != 0) {
                     vm.flag = true;
                     time = time - (increment*20);
                 }
-
-                $timeout(() => {film.state = "animated fadeIn"}, time);
-
+                    $timeout(() => {film.state = "animated fadeIn"}, time);
              })
          }
          function setFilms(api_res) {
-             vm.filmsState = 'unload';
              api_res.then(res => {
                 (vm.config.page == 1) ? vm.films = [] : ""
 
@@ -266,6 +285,12 @@
              vm.currentFilm = film;
          }
          function addSelectedGenres(genre) {
+             if(genre == "") {
+                 vm.genres.forEach(g => {
+                     g.state = "no-selected";
+                 })
+                 return
+             }
              vm.films = [];
             (genre.state == "selected") ? genre.state = "no-selected" : genre.state = "selected";
             vm.selected_genres = [];
@@ -290,17 +315,60 @@
                 })
             })
          }
+
          function loadUserInfo() {
+             /*
             vm.user.favorites = localStorageProvider.get('favorites');
             vm.user.watched = localStorageProvider.get('watched');
             vm.user.watchLater = localStorageProvider.get('watchLater');
+            */
          }
+
          function showUserProfile(list) {
              vm.userProfile = !vm.userProfile;
              if(vm.userProfile) {
                  loadUserInfo();
-                 loadUserMovies(list);
+                 loadUserMovies(vm.user.favorites);
              }
+         }
+         function resetFilters() {
+             vm.config.filters = [
+                {
+                    name: "sort_by",
+                    value: "popularity.desc"
+                }
+            ];
+            vm.selected_genres = [];
+            vm.addSelectedGenres("");
+            vm.yearSlider = {
+                minValue: 1979,
+                maxValue: 2017,
+                options: {
+                    floor: 1979,
+                    ceil: 2017,
+                    step: 1,
+                    onEnd: vm.handleDates,
+                }
+            };
+            vm.imbdSlider = {
+                minValue: 0,
+                maxValue: 10,
+                options: {
+                    floor: 0,
+                    ceil: 10,
+                    step: 1,
+                    onEnd: vm.handleValoration,
+                }
+            };
+             getFilms();
+         }
+         function logout() {
+             firebaseProvider.logout();
+             vm.user = {};
+         }
+
+         function goLogin() {
+             $location.path("/login");
          }
     }
 })();

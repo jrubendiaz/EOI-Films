@@ -1,0 +1,8 @@
+<div class="login-form-container">
+    <form class="login-form flex flex-column">
+        <input type="email" ng-model="loginCtrl.user.email" placeholder="Introduce tu email" />
+        <input type="password" ng-model="loginCtrl.user.password" placeholder="Password" />
+        <button class="btn bg-facebook white" ng-click="loginCtrl.login()">Iniciar sesión</button>
+        <label class="error">{{loginCtrl.traducir(loginCtrl.errorMessage)}}</label>
+    </form>
+</div>
